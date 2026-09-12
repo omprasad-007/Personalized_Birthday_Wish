@@ -168,12 +168,160 @@ document.addEventListener('DOMContentLoaded', () => {
             fromLabel: 'With All My Love & Best Wishes From',
             mainHeading: (recip) => `Happy Birthday, ${recip}!`,
             mainTagline: 'Wishing you the most magical, joyful, and sweetest day! 🎉',
-            mainWishes: [
-                (recip, sender) => `Dearest ${recip}, on this magnificent day, I want to celebrate the incredible light and joy you bring into the world. May your new year be blessed with glowing health, gentle peace of mind, unshakeable strength, and dreams unfolding in the most beautiful ways. Your kindness and warmth touch everyone around you in ways words can never fully capture.\n\nMay every single morning bring you reasons to smile, every evening bring you contentment, and every step lead you closer to your grandest aspirations. Always here cheering for you with all my heart, ${sender} ❤️`,
-                (recip, sender) => `Happy Birthday, extraordinary soul ${recip}! 🎂 Today marks the start of a glorious new chapter in your life. May this year shower you with unforgettable adventures, sincere friendships, and triumphant milestones that make your heart beam with pride.\n\nThank you for being such an authentic, compassionate, and inspiring presence in my life. Never lose your spark, because you make this world a much brighter and happier place! Warmest love from ${sender} ✨`,
-                (recip, sender) => `To the dearest and most wonderful ${recip}, Happy Birthday! 🌟 May the coming year bring you boundless happiness, radiant vitality, and the fulfillment of every silent wish you have held in your heart.\n\nYou have an unmatched gift of making every ordinary moment feel special. May your days overflow with laughter, prosperity, and the boundless love you so richly deserve. Always wishing the very best for you, ${sender} 💫`,
-                (recip, sender) => `Happy Birthday, dearest ${recip}! 🌸 Today is a celebration of all the warmth, joy, and beauty you give to the world. May your path ahead be illuminated by golden opportunities, deep peace, and pure bliss.\n\nNo matter where life takes you, remember that you are deeply cherished, respected, and loved beyond measure. Keep shining your brilliant light! With endless love, ${sender} ❤️`,
-                (recip, sender) => `Wishing the happiest, sweetest, and most magical birthday to ${recip}! 🎈 May your days be filled with heartwarming smiles, great victories, and moments that take your breath away.\n\nYou deserve all the wonders the universe has to offer. May this year be your most victorious, peaceful, and joyful year yet! Cheering for you always, ${sender} ✨`
+                        mainWishes: [
+                (recip, sender) => "Happy Birthday, " + recip + "! 🎉 Another year wiser, bolder, and undeniably cooler! May your day be packed with endless laughter, extra cake, and zero worries. Cheers from " + sender + "! 🥳",
+                (recip, sender) => "Hip hip hooray for " + recip + "! 🎂 May your special day bring you all the fun, surprises, and happiness you can handle. Keep being the rockstar you are! From " + sender + " ✨",
+                (recip, sender) => "Happy Birthday to the legendary " + recip + "! 🎈 Warning: high levels of fun, music, and cake expected today! Wishing you a sensational day, from " + sender + "! 🍰",
+                (recip, sender) => "It's " + recip + "'s day to shine brighter than a disco ball! ✨ Hope your birthday is as upbeat, fun, and wonderful as your personality. Cheers, " + sender + " 🍕",
+                (recip, sender) => "Happy Birthday, " + recip + "! 🎁 Eat all the treats, dance like nobody is watching, and celebrate in grand style. Sending you top-tier birthday vibes, " + sender + "! 🕺",
+                (recip, sender) => "Time to pop the confetti for " + recip + "! 🎊 May this year bring you epic road trips, belly laughs, and unmatched good times. High five from " + sender + "! 🚀",
+                (recip, sender) => "Happy Birthday, " + recip + "! 🌟 May your day be 100% stress-free, 100% fun-filled, and 1000% memorable. Big celebration hugs from " + sender + "! 🎉",
+                (recip, sender) => "To the coolest person in the room, Happy Birthday " + recip + "! 🕶️ May your inbox be quiet, your playlist be fire, and your cake be huge. Always cheering for you, " + sender + "! ✨",
+                (recip, sender) => "Happy Birthday, " + recip + "! 🥳 Here is your official permission to eat dessert first and celebrate all day long! Warm wishes and big smiles from " + sender + " 🧁",
+                (recip, sender) => "Happy Birthday, " + recip + "! 🎈 Life is so much more fun with your cheerful energy around. May your year ahead be packed with endless joy, from " + sender + "! 🌈",
+                (recip, sender) => "Another 365 days of being awesome, " + recip + "! 🎂 Wishing you heaps of laughter, delicious food, and wonderful company today. From " + sender + " with love! 🎁",
+                (recip, sender) => "Happy Birthday, superstar " + recip + "! 🌟 May your day overflow with epic moments, good music, and sweet surprises. Cheers from " + sender + " 🍾",
+                (recip, sender) => "Sending giant birthday cheers to " + recip + "! 🎉 May your new age unlock fantastic adventures and endless reasons to smile. Your buddy, " + sender + "! 🚀",
+                (recip, sender) => "Happy Birthday, " + recip + "! 🍰 May your candles burn bright and all your fun wishes come true in an instant. From " + sender + " with great joy! 🎈",
+                (recip, sender) => "Happy Birthday to the one and only " + recip + "! 🎊 Today we celebrate your unique sparkle, your humor, and your great heart. Best wishes from " + sender + "! ✨",
+                (recip, sender) => "Cheers to " + recip + " on your special birthday! 🥂 May your days ahead be colorful, thrilling, and full of joyful surprises. Warm regards from " + sender + " 💖",
+                (recip, sender) => "Happy Birthday, " + recip + "! 🎁 May your celebration be as bright, loud, and fantastic as your spirit! Best wishes always, " + sender + " 🥳",
+                (recip, sender) => "Dearest " + recip + ", on this beautiful day, I celebrate the light and warmth you bring into every life you touch. May peace, love, and fulfillment surround you always. With all my heart, " + sender + " ❤️",
+                (recip, sender) => "Happy Birthday, dearest " + recip + "! 🌸 Your genuine kindness is a rare gift to this world. May every dream in your heart find its way into reality. Deepest love from " + sender + " ✨",
+                (recip, sender) => "To someone truly special, Happy Birthday " + recip + "! 🌟 Thank you for being such an authentic, compassionate, and uplifting presence. May your year overflow with blessings. From " + sender + " ❤️",
+                (recip, sender) => "Dearest " + recip + ", watching you grow and flourish is a true joy. May your path ahead be illuminated by love, health, and profound happiness. Always in your corner, " + sender + " 💫",
+                (recip, sender) => "Happy Birthday, " + recip + "! 💖 May this milestone bring you quiet peace of mind, deep contentment, and hearts full of love. Cherishing you always, " + sender + " 🌸",
+                (recip, sender) => "To the wonderful soul that is " + recip + ", Happy Birthday! 🌿 May life reward all the good you do with boundless joy, great health, and true friendships. Warmest love, " + sender + " ❤️",
+                (recip, sender) => "Dearest " + recip + ", you make ordinary moments feel meaningful simply by being there. May your special day bring you as much happiness as you give to others. Love from " + sender + " ✨",
+                (recip, sender) => "Happy Birthday, " + recip + "! 🌺 May your heart always remain full of gratitude, your spirit full of courage, and your life full of love. Best wishes from " + sender + " 💖",
+                (recip, sender) => "To the dearest " + recip + ", on your birthday I wish you the gentle gift of inner peace, unwavering joy, and heartfelt companionship. Always here for you, " + sender + " 🌟",
+                (recip, sender) => "Happy Birthday, " + recip + "! 🌷 May you always be surrounded by genuine people, heartwarming laughter, and love that never fades. Warmly wishing you the best, " + sender + " ❤️",
+                (recip, sender) => "Dearest " + recip + ", thank you for your warmth, your sincerity, and your listening ear. May this year shower you with all the grace and love you deserve. From " + sender + " ✨",
+                (recip, sender) => "Happy Birthday, beautiful soul " + recip + "! 🌸 May your path be lined with serendipity, tender memories, and endless reasons to smile. Lovingly from " + sender + " 💖",
+                (recip, sender) => "To my cherished friend " + recip + ", Happy Birthday! 🌟 May every sunrise bring you fresh optimism and every sunset leave you with deep peace. Forever cheering for you, " + sender + " ❤️",
+                (recip, sender) => "Happy Birthday, " + recip + "! 🌿 Your presence is a true blessing in my life. May this new year bring you overflowing joy and tranquil comfort. With affection, " + sender + " 💫",
+                (recip, sender) => "Dearest " + recip + ", on this special day, I pray for your glowing health, pure happiness, and lasting serenity. Keep shining bright! Warmly, " + sender + " 🌸",
+                (recip, sender) => "Happy Birthday, " + recip + "! 💖 May you feel truly appreciated, deeply loved, and celebrated today and every single day. With heartfelt love from " + sender + " ✨",
+                (recip, sender) => "To dearest " + recip + ", may your birthday be the start of your most peaceful, rewarding, and heartwarming year yet. Always in my prayers, " + sender + " ❤️",
+                (recip, sender) => "To the graceful " + recip + ", Happy Birthday! ✨ Like a gentle sunrise, your spirit brings beauty and calm to all around you. May your year unfold like a tapestry of golden moments. Best wishes, " + sender + " 🌅",
+                (recip, sender) => "Happy Birthday, " + recip + "! 🌟 May the music of laughter, the fragrance of joy, and the glow of good health accompany every step of your journey. With elegance and respect from " + sender + " 🎻",
+                (recip, sender) => "To the radiant " + recip + ", may your special day be adorned with quiet blessings, timeless memories, and soaring dreams. Wishing you pure magnificence, " + sender + " 🥂",
+                (recip, sender) => "Happy Birthday, " + recip + "! 🌸 May life write its sweetest poetry across the pages of your upcoming year. Warmest regards from " + sender + " 📜",
+                (recip, sender) => "To " + recip + ", a soul of grace and poise: Happy Birthday! 💎 May your path be illuminated by stellar achievements and peaceful horizons. Fondly, " + sender + " ✨",
+                (recip, sender) => "Happy Birthday, " + recip + "! 🌙 May your life be as radiant as the moonlit ocean, filled with serene wonders and golden tides. Deepest wishes from " + sender + " 🌊",
+                (recip, sender) => "To the extraordinary " + recip + ", Happy Birthday! 🕊️ May peace dwell in your heart and prosperity grace your footsteps. With high regard and warm thoughts, " + sender + " 🌿",
+                (recip, sender) => "Happy Birthday, " + recip + "! 🕯️ May the coming year be a masterpiece of serendipity, good fortune, and genuine smiles. Best wishes from " + sender + " 🎨",
+                (recip, sender) => "To " + recip + ", Happy Birthday! 🌟 May your days resonate with harmonious melodies of health, prosperity, and love. Warmest wishes from " + sender + " 🎶",
+                (recip, sender) => "Happy Birthday, " + recip + "! 🌸 Like a blooming garden in spring, may your aspirations blossom into magnificent realities. With admiration, " + sender + " 🌷",
+                (recip, sender) => "To " + recip + ", wishing you a birthday filled with the quiet luxury of peace, the wealth of health, and the joy of genuine love. From " + sender + " ✨",
+                (recip, sender) => "Happy Birthday, " + recip + "! 💫 May your footsteps always lead toward gentle wisdom, golden triumphs, and deep contentment. Gratefully, " + sender + " 🌟",
+                (recip, sender) => "To the timeless and charming " + recip + ", Happy Birthday! 🥂 May your days ahead shine with unclouded sunshine and blissful laughter. With best wishes from " + sender + " ☀️",
+                (recip, sender) => "Happy Birthday, " + recip + "! 🌹 May the universe orchestrate its most delightful surprises for you throughout this new year. Warmest greetings from " + sender + " 🎻",
+                (recip, sender) => "To " + recip + ", on this special anniversary of your birth: May beauty surround you and happiness abide with you. From " + sender + " with highest esteem 🌟",
+                (recip, sender) => "Happy Birthday, " + recip + "! 🕊️ May your spirit soar on wings of optimism and your heart remain an oasis of tranquility. Warm wishes from " + sender + " 🌿",
+                (recip, sender) => "To the wonderful " + recip + ", may your birthday be the dawn of a year filled with timeless elegance and triumphant joys. Sincerely, " + sender + " 💫",
+                (recip, sender) => "Happy Birthday, my friend " + recip + "! 😊 Thanks for all the shared memories and late-night chats. Wishing you the happiest day ever! From " + sender + " 🍕",
+                (recip, sender) => "Hey " + recip + ", wishing you an epic birthday filled with your favorite people, good food, and great tunes! Your friend, " + sender + " 🎧",
+                (recip, sender) => "Happy Birthday, " + recip + "! 🎉 So grateful to have someone as fun and dependable as you in my circle. Let's make this year unforgettable! Cheers, " + sender + " ☕",
+                (recip, sender) => "Big birthday shoutout to " + recip + "! 🎈 May your year ahead be full of successful milestones and stress-free weekends. Best vibes from " + sender + " 🚀",
+                (recip, sender) => "Happy Birthday, " + recip + "! 🌟 Keep being your awesome self and never lose that contagious smile. Your buddy, " + sender + " 😊",
+                (recip, sender) => "Wishing the happiest of birthdays to " + recip + "! 🍰 May every coffee be strong, every day be productive, and every weekend be fun! From " + sender + " ☕",
+                (recip, sender) => "Happy Birthday, " + recip + "! 🎊 Having you around always makes the world a brighter place. Have a blast today! Cheers from " + sender + " 🍔",
+                (recip, sender) => "To my great pal " + recip + ", Happy Birthday! 🎁 May this year bring you great opportunities and endless good times. Always in your corner, " + sender + " 🌟",
+                (recip, sender) => "Happy Birthday, " + recip + "! 🥳 Here is to another year of laughs, shared jokes, and great conversations. Wishing you the best, " + sender + "! 🍻",
+                (recip, sender) => "Hey " + recip + "! 🎂 Hope your birthday is filled with everything you love most. You deserve nothing but the best! Your friend, " + sender + " 🎈",
+                (recip, sender) => "Happy Birthday, " + recip + "! 🌈 Wishing you 365 days of good news, great wins, and memorable moments. From " + sender + " with a big smile! 🚀",
+                (recip, sender) => "To " + recip + ", Happy Birthday! 🎉 Thanks for always being someone I can count on. Have an incredible celebration today! Best wishes from " + sender + " ✨",
+                (recip, sender) => "Happy Birthday, " + recip + "! 🍰 May your year be packed with awesome experiences and unforgettable stories. Your friend, " + sender + " 📖",
+                (recip, sender) => "Big cheers to " + recip + " on your special day! 🥂 May all your projects succeed and your dreams take flight. From " + sender + " with excitement! 🎯",
+                (recip, sender) => "Happy Birthday, " + recip + "! 🌟 Keep spreading your positive energy everywhere you go. Celebrating you today, " + sender + "! 😊",
+                (recip, sender) => "Wishing you a fantastic birthday, " + recip + "! 🎈 May this new chapter bring you peace, prosperity, and plenty of fun! Your buddy, " + sender + " 🍕",
+                (recip, sender) => "Happy Birthday, " + recip + "! 🎊 Here's to good health, big smiles, and another year of winning together. From your pal, " + sender + " 🏆",
+                (recip, sender) => "Happy Birthday, " + recip + "! 🌟 You possess incredible potential and an inspiring drive. May this year take your ambitions to heights you once only dreamed of. Cheering for you, " + sender + " 🚀",
+                (recip, sender) => "To the visionary " + recip + ", Happy Birthday! 🎯 Keep chasing your boldest dreams with that unmatched passion. The world is yours to conquer! Best wishes, " + sender + " 💡",
+                (recip, sender) => "Happy Birthday, " + recip + "! 🦅 May you have the courage to take big leaps and the resilience to turn every challenge into victory. Always believing in you, " + sender + " ✨",
+                (recip, sender) => "To " + recip + ", Happy Birthday! 🌌 Every milestone is an open door to greatness. Step boldly into this new year knowing you are capable of wonders. From " + sender + " 💫",
+                (recip, sender) => "Happy Birthday, " + recip + "! 🏔️ May you climb every summit you set your eyes on and find deep fulfillment along the way. Your supporter, " + sender + " 🧗",
+                (recip, sender) => "To " + recip + ", on your birthday: May your wisdom deepen, your vision expand, and your impact grow stronger every single day. Proud of you, " + sender + " 🌟",
+                (recip, sender) => "Happy Birthday, " + recip + "! 🧭 May your inner compass always guide you toward truth, excellence, and radiant success. From " + sender + " with respect 🎯",
+                (recip, sender) => "To the unstoppable " + recip + ", Happy Birthday! ⚡ May this year bring you groundbreaking breakthroughs and triumphant moments. Always cheering for you, " + sender + " 🚀",
+                (recip, sender) => "Happy Birthday, " + recip + "! 🌟 Your dedication is a beacon for everyone around you. May your rewards match your extraordinary efforts! From " + sender + " ✨",
+                (recip, sender) => "To " + recip + ", Happy Birthday! 🌈 Dream fearlessly, act boldly, and watch how the universe aligns to support you. Believing in your greatness, " + sender + " 💫",
+                (recip, sender) => "Happy Birthday, " + recip + "! 🗝️ May this year unlock golden opportunities and lead you to your most victorious achievements. From " + sender + " with admiration 🏆",
+                (recip, sender) => "To " + recip + ", Happy Birthday! 🚀 May your focus stay sharp and your enthusiasm stay boundless. You are destined for remarkable things! Your friend, " + sender + " 🌟",
+                (recip, sender) => "Happy Birthday, " + recip + "! 💡 May brilliant ideas flow freely and lead you toward life-changing breakthroughs this year. High regards from " + sender + " 🎯",
+                (recip, sender) => "To " + recip + ", Happy Birthday! 🌿 May your roots stay grounded in kindness while your branches reach for the stars. Inspiringly yours, " + sender + " ✨",
+                (recip, sender) => "Happy Birthday, " + recip + "! 🦅 Spread your wings and soar above the ordinary. You were made for greatness! From " + sender + " with wholehearted support 🌌",
+                (recip, sender) => "To " + recip + ", Happy Birthday! 🌟 May your courage never waver and your optimism never fade. Keep writing your inspiring story! Warmly, " + sender + " 📖",
+                (recip, sender) => "Happy Birthday, " + recip + "! 🎯 May this year be your masterclass in success, peace, and triumphant accomplishments. Best wishes always, " + sender + " 🏆",
+                (recip, sender) => "Happy Birthday, " + recip + "! 🎂 Today is all about celebrating the wonderful gift of YOU! May your day be packed with joy, laughter, and sweet treats. From " + sender + " 🎉",
+                (recip, sender) => "Let the grand celebrations begin for " + recip + "! 🥳 Wishing you music that makes you dance, friends that make you laugh, and memories that last forever! Cheers, " + sender + " 🍾",
+                (recip, sender) => "Happy Birthday, " + recip + "! 🎈 Blow the candles, make the biggest wish, and get ready for your happiest year yet! Huge love from " + sender + " 🍰",
+                (recip, sender) => "To the guest of honor, " + recip + ": Happy Birthday! 🌟 May your special day be overflowing with love, surprise gifts, and vibrant energy. From " + sender + " 🎁",
+                (recip, sender) => "Happy Birthday, " + recip + "! 🎊 Today we toast to your health, your laughter, and the wonderful sunshine you bring everywhere. Cheers from " + sender + " 🥂",
+                (recip, sender) => "Happy Birthday, superstar " + recip + "! 🍰 May your cake be sweet, your gifts be plenty, and your smile be endless today! Love, " + sender + " 🎈",
+                (recip, sender) => "Time for party poppers and sparklers for " + recip + "! 🎆 Wishing you an electrifying birthday celebration filled with joy. Your pal, " + sender + " 🎉",
+                (recip, sender) => "Happy Birthday, " + recip + "! 🎂 May the coming year bring you 365 days of vibrant health, joyful celebrations, and good fortune! From " + sender + " ✨",
+                (recip, sender) => "To the dearest " + recip + ", Happy Birthday! 🌟 Today the spotlight is on you! Enjoy every magical second of your special day. Best wishes from " + sender + " 🥳",
+                (recip, sender) => "Happy Birthday, " + recip + "! 🎁 Wishing you a celebration as grand, delightful, and unforgettable as you are! Warmest hugs from " + sender + " 🎈",
+                (recip, sender) => "Pop the bubbles for " + recip + "! 🥂 May this birthday mark the start of your most joyful, blessed, and prosperous year yet. Cheers, " + sender + " 🍰",
+                (recip, sender) => "Happy Birthday, " + recip + "! 🎊 May your day be filled with warm hugs, happy memories, and endless laughter. With lots of love, " + sender + " 💖",
+                (recip, sender) => "To the wonderful " + recip + ", Happy Birthday! 🎂 Put on your best smile and enjoy the best party of the year! Big cheers from " + sender + " 🎉",
+                (recip, sender) => "Happy Birthday, " + recip + "! 🌟 May your special day bring you as much happiness and cheer as you bring to everyone else. From " + sender + " ✨",
+                (recip, sender) => "Let the birthday magic begin for " + recip + "! 🎈 Wishing you wonderful moments, heartwarming wishes, and delightful surprises! Your friend, " + sender + " 🎁",
+                (recip, sender) => "Happy Birthday, " + recip + "! 🥳 May your laughter echo through the year and your memories stay golden. Celebrate big today! Love, " + sender + " 🍰",
+                (recip, sender) => "To " + recip + ", wishing you a sensational birthday celebration filled with love, laughter, and your favorite treats! Always cheering, " + sender + " 🎊",
+                (recip, sender) => "Dearest " + recip + ", words cannot fully express how much your friendship means to me. Thank you for your warmth and loyalty. Happy Birthday! Love always, " + sender + " ❤️",
+                (recip, sender) => "Happy Birthday, " + recip + "! 🌸 Through every season of life, your presence has been a comfort and a joy. May life give you all the happiness you deserve. From " + sender + " 💖",
+                (recip, sender) => "To my dearest " + recip + ", Happy Birthday! 🌟 Having you in my life is a true blessing I cherish every single day. Wishing you endless peace and joy, " + sender + " ✨",
+                (recip, sender) => "Dearest " + recip + ", you are family to my heart. On your birthday, I wish you good health, genuine smiles, and love that never fades. Always here for you, " + sender + " ❤️",
+                (recip, sender) => "Happy Birthday, " + recip + "! 💫 Thank you for being the person who understands without words and brings joy without effort. Forever grateful, " + sender + " 🌸",
+                (recip, sender) => "To the irreplaceable " + recip + ", Happy Birthday! 🌿 May the universe return to you ten times the kindness, care, and love you give to others. Love from " + sender + " ❤️",
+                (recip, sender) => "Dearest " + recip + ", looking back at our memories brings so much warmth. Here is to creating many more beautiful stories together! Happy Birthday, " + sender + " ✨",
+                (recip, sender) => "Happy Birthday, " + recip + "! 💖 You have a heart of pure gold. May your days be blessed with deep peace and loving companions. Always yours, " + sender + " 🌺",
+                (recip, sender) => "To dearest " + recip + ", on your special day: Remember that you are cherished, valued, and deeply loved. Happy Birthday from the bottom of my heart, " + sender + " ❤️",
+                (recip, sender) => "Happy Birthday, " + recip + "! 🌷 Your friendship is one of the brightest treasures in my life. Wishing you a year full of quiet joys and big triumphs, " + sender + " 🌟",
+                (recip, sender) => "Dearest " + recip + ", thank you for being you—authentic, kind, and wonderful. May this birthday bring you pure happiness. Warmest love from " + sender + " 💫",
+                (recip, sender) => "Happy Birthday, " + recip + "! 🌸 Life is so much richer with you in it. May all your silent prayers be answered with blessings. Always in your corner, " + sender + " ❤️",
+                (recip, sender) => "To my dear friend " + recip + ", Happy Birthday! 🌿 May you always know how deeply valued you are. Wishing you peace, health, and joy, " + sender + " 💖",
+                (recip, sender) => "Dearest " + recip + ", on this milestone of your journey, I celebrate your beautiful heart and your shining spirit. Happy Birthday with all my love, " + sender + " ✨",
+                (recip, sender) => "Happy Birthday, " + recip + "! 🌺 May the road ahead be gentle, the people around you be loving, and your heart be at peace. From " + sender + " with deep affection ❤️",
+                (recip, sender) => "To dearest " + recip + ", wishing you a birthday as tender, genuine, and beautiful as your soul. Forever cheering for your happiness, " + sender + " 💫",
+                (recip, sender) => "Happy Birthday, " + recip + "! 💖 Thank you for the laughs, the support, and the memories. May your coming year be your brightest yet! Love, " + sender + " 🌸",
+                (recip, sender) => "Happy Birthday, champion " + recip + "! 🏆 May this year shatter every limitation and elevate you to your greatest achievements yet. Go crush it! From " + sender + " 🚀",
+                (recip, sender) => "To " + recip + ", on your birthday: Keep building, keep conquering, and keep inspiring everyone around you. Victory looks good on you! Best wishes, " + sender + " ⚡",
+                (recip, sender) => "Happy Birthday, " + recip + "! 🎯 May every goal you set this year turn into a triumphant reality. The summit is waiting for you! Your supporter, " + sender + " 🏔️",
+                (recip, sender) => "To the hardworking " + recip + ", Happy Birthday! 💡 May your relentless effort pay off with grand rewards, prestige, and deep satisfaction. From " + sender + " 🌟",
+                (recip, sender) => "Happy Birthday, " + recip + "! 🚀 Stay bold, stay hungry, and keep leveling up. This year is yours to dominate! Cheering loud, " + sender + " 💥",
+                (recip, sender) => "To " + recip + ", Happy Birthday! 🏆 May your career soar, your ventures thrive, and your confidence remain unshakeable. Best regards from " + sender + " 📈",
+                (recip, sender) => "Happy Birthday, " + recip + "! ⚡ You were made to achieve extraordinary things. Keep that fire burning and conquer every challenge! From " + sender + " 🎯",
+                (recip, sender) => "To the dynamic " + recip + ", Happy Birthday! 🌟 May this new age bring you high-impact opportunities and massive wins. Always in your corner, " + sender + " 🚀",
+                (recip, sender) => "Happy Birthday, " + recip + "! 💎 Pressure turns carbon into diamonds, and you shine brighter every year. Keep leading the way! High five from " + sender + " 🏆",
+                (recip, sender) => "To " + recip + ", Happy Birthday! 🎯 May your strategies work flawlessly and your vision guide you straight to the top. Proud of you, " + sender + " 💡",
+                (recip, sender) => "Happy Birthday, " + recip + "! 🚀 May this year be your most breakthrough-filled, productive, and victorious year yet! From " + sender + " with full support ⚡",
+                (recip, sender) => "To the powerhouse " + recip + ", Happy Birthday! 🌟 Keep breaking barriers and rewriting what is possible. The future is yours! Your friend, " + sender + " 🏆",
+                (recip, sender) => "Happy Birthday, " + recip + "! 🏔️ Rise above every obstacle and claim the success you have worked so hard for. Best wishes always, " + sender + " 🎯",
+                (recip, sender) => "To " + recip + ", on your birthday: May your drive stay fierce and your accomplishments speak volumes. Keep winning! Cheers from " + sender + " 🚀",
+                (recip, sender) => "Happy Birthday, " + recip + "! 💡 May you turn every dream into an empire and every effort into gold. Always cheering for you, " + sender + " ⚡",
+                (recip, sender) => "To " + recip + ", Happy Birthday! 🏆 Another year of proving that nothing is impossible with dedication and passion. High regards, " + sender + " 🌟",
+                (recip, sender) => "Happy Birthday, " + recip + "! 🎯 May your ambition meet divine timing and lead to your greatest triumphs yet. From your supporter, " + sender + " 🚀",
+                (recip, sender) => "Happy Birthday, sweet " + recip + "! 🌸 May your day be as gentle, sunny, and delightful as your smile. Wishing you endless happiness, " + sender + " 🌷",
+                (recip, sender) => "To the lovely " + recip + ", Happy Birthday! 🍰 May your heart be light, your smile be bright, and your day be filled with warm hugs. Love from " + sender + " 🎈",
+                (recip, sender) => "Happy Birthday, dearest " + recip + "! 🌟 Sending you bouquets of happiness, boxes of laughter, and a year full of sweet memories. From " + sender + " 💐",
+                (recip, sender) => "To " + recip + ", wishing you the sweetest birthday! 🍭 May simple joys and heartwarming moments fill every corner of your special day. Love, " + sender + " ✨",
+                (recip, sender) => "Happy Birthday, " + recip + "! 🌿 May your day be peaceful, cozy, and wrapped in the love of those who cherish you most. Warmly, " + sender + " ☕",
+                (recip, sender) => "To the radiant " + recip + ", Happy Birthday! 🌺 Keep lighting up the world with your gentle warmth and sincere smile. Hugs from " + sender + " 💖",
+                (recip, sender) => "Happy Birthday, sweet soul " + recip + "! 🧁 May your birthday cake be delicious, your celebrations be cozy, and your year be sweet. Love from " + sender + " 🍓",
+                (recip, sender) => "To " + recip + ", Happy Birthday! 🌈 May life sprinkle gentle magic and sweet blessings over everything you do. Always wishing you the best, " + sender + " 🌸",
+                (recip, sender) => "Happy Birthday, " + recip + "! 🌼 May your heart always feel light and your days always feel bright. Lovingly wishing you a magical year, " + sender + " ✨",
+                (recip, sender) => "To the sweet " + recip + ", Happy Birthday! 🕊️ May you be blessed with quiet moments of joy, loving friendships, and warm coffee. Hugs, " + sender + " ☕",
+                (recip, sender) => "Happy Birthday, " + recip + "! 🌸 May today bring you all the gentle warmth and sweetest smiles that life has to offer. Love always, " + sender + " 💖",
+                (recip, sender) => "To " + recip + ", Happy Birthday! 🌷 May your spirit remain tender, your laughter remain bright, and your heart remain at peace. From " + sender + " 🌟",
+                (recip, sender) => "Happy Birthday, sweet " + recip + "! 🍓 Wishing you a day full of sweet surprises, lovely conversations, and heartwarming love. From " + sender + " 🍰",
+                (recip, sender) => "To " + recip + ", Happy Birthday! 🌺 May your year be soft, bright, and filled with the sweetest blessings of life. Lovingly from " + sender + " 🌸",
+                (recip, sender) => "Happy Birthday, " + recip + "! 🌿 Sending you a warm cup of love, a plate full of joy, and a sky full of blessings. Warm hugs from " + sender + " ✨",
+                (recip, sender) => "To the sweetest " + recip + ", Happy Birthday! 💖 May today remind you how truly special and cherished you are by everyone around you. Love, " + sender + " 🌷",
+                (recip, sender) => "Happy Birthday, " + recip + "! 🌈 May your path be sprinkled with kindness, joy, and the sweetest memories you will cherish forever. From " + sender + " 🌸"
             ],
             wishBadges: ['✨ Limitless Joy', '❤️ Pure Love', '🎯 Grand Success', '🌟 Beautiful Memories'],
             tab1Badge: '❤️ A Message From The Heart',
@@ -378,7 +526,7 @@ document.addEventListener('DOMContentLoaded', () => {
             tab4Desc: 'पत्र उघडण्यासाठी मेणाच्या मोहरेवर टॅप करा.',
             tab4SecretLetters: [
                 (recip, sender) => `"कधीही विसरू नका की तुम्ही किती हुशार, प्रेमळ आणि मौल्यवान आहात, ${recip}. तुम्ही खरंच अनमोल आहात. सतत चमकत राहा!"\n\n— मनापासून, ${sender} ❤️`,
-                (recip, sender) => `"तुमच्या निखळ हास्याने अनेकांच्या चेहऱ्यावर आनंद येतो, ${recip}. असेच सदैव हसतमुख राहा!"\n\n— आपला स्नेही, ${sender} ✨`,
+                (recip, sender) => `"तुमच्या निखळ हास्याने अनेकांच्या चेहऱ्यावर आनंद येतो, ${recip}. सदा ऐसेच हसतमुख राहा!"\n\n— आपला स्नेही, ${sender} ✨`,
                 (recip, sender) => `"आयुष्याच्या प्रत्येक टप्प्यावर यश तुमच्या पाठीशी राहो, ${recip}. वाढदिवसाच्या हार्दिक सदिच्छा!"\n\n— ${sender} 🌸`
             ],
             tab5Badge: '🌟 वाढदिवसाच्या मंगलमय शुभेच्छा!',
@@ -902,10 +1050,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // =========================================================================
-    // GENERATE PERSONALIZED WISH & SOCIAL APPS SHARING CONTROLLER
+    // GENERATE PERSONALIZED WISH, PREVIEW MODE & SEND WISH MODAL CONTROLLER
     // =========================================================================
+    let isPreviewMode = false;
     const btnGenerateWishNav = document.getElementById('btn-generate-wish');
     const btnGenerateWishFooter = document.getElementById('btn-generate-wish-footer');
+    const btnSendWishNav = document.getElementById('btn-send-wish-nav');
+    const btnStage0SendWish = document.getElementById('btn-stage0-send-wish');
+    const btnFinaleSendWish = document.getElementById('btn-finale-send-wish');
     const createWishForm = document.getElementById('create-wish-form');
     const inputBdayName = document.getElementById('input-bday-name');
     const inputSenderName = document.getElementById('input-sender-name');
@@ -915,7 +1067,27 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnPreviewGeneratedWish = document.getElementById('btn-preview-generated-wish');
     const toastNotice = document.getElementById('toast-notice');
 
-    // Share buttons
+    // Floating Preview Bar Elements
+    const previewModeBar = document.getElementById('preview-mode-bar');
+    const previewRecipientName = document.getElementById('preview-recipient-name');
+    const btnPreviewBarSend = document.getElementById('btn-preview-bar-send');
+    const btnPreviewBarEdit = document.getElementById('btn-preview-bar-edit');
+
+    // Send Wish Modal Elements
+    const sendWishModal = document.getElementById('send-wish-modal');
+    const btnCloseSendModal = document.getElementById('btn-close-send-modal');
+    const sendModalHeading = document.getElementById('send-modal-heading');
+    const sendModalSubheading = document.getElementById('send-modal-subheading');
+    const modalShareLinkInput = document.getElementById('modal-share-link-input');
+    const btnModalCopyLink = document.getElementById('btn-modal-copy-link');
+    const btnModalWhatsapp = document.getElementById('btn-modal-whatsapp');
+    const btnModalTelegram = document.getElementById('btn-modal-telegram');
+    const btnModalInstagram = document.getElementById('btn-modal-instagram');
+    const btnModalSms = document.getElementById('btn-modal-sms');
+    const btnModalNative = document.getElementById('btn-modal-native');
+    const btnModalBackEdit = document.getElementById('btn-modal-back-edit');
+
+    // Generator Form Share buttons
     const btnShareWhatsapp = document.getElementById('btn-share-whatsapp');
     const btnShareTelegram = document.getElementById('btn-share-telegram');
     const btnShareInstagram = document.getElementById('btn-share-instagram');
@@ -936,12 +1108,64 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function updateShareLinkField() {
-        if (!outputShareLink) return;
         const bName = (inputBdayName && inputBdayName.value.trim()) || recipientName || 'Friend';
         const sName = (inputSenderName && inputSenderName.value.trim()) || senderName || 'Your Friend';
         const langCode = (inputWishLang && inputWishLang.value) || currentLanguage;
         const cMsg = inputCustomMsg ? inputCustomMsg.value.trim() : '';
-        outputShareLink.value = buildCleanShareUrl(bName, sName, langCode, cMsg);
+        const url = buildCleanShareUrl(bName, sName, langCode, cMsg);
+        if (outputShareLink) outputShareLink.value = url;
+        if (modalShareLinkInput) modalShareLinkInput.value = url;
+    }
+
+    // Open & Close Send Wish Modal
+    function openSendWishModal() {
+        if (!sendWishModal) return;
+        const bName = recipientName || 'Friend';
+        const sName = senderName || 'Your Friend';
+        const shareUrl = buildCleanShareUrl(bName, sName, currentLanguage, customMsg);
+
+        if (sendModalHeading) {
+            sendModalHeading.textContent = `Send Wish to ${bName} 🎁`;
+        }
+        if (sendModalSubheading) {
+            sendModalSubheading.textContent = `Your personalized birthday celebration from ${sName} to ${bName} is ready! Send it directly:`;
+        }
+        if (modalShareLinkInput) {
+            modalShareLinkInput.value = shareUrl;
+        }
+
+        sendWishModal.classList.add('active');
+        if (window.soundEngine) window.soundEngine.playSparkle();
+    }
+
+    function closeSendWishModal() {
+        if (sendWishModal) sendWishModal.classList.remove('active');
+    }
+
+    if (btnCloseSendModal) btnCloseSendModal.addEventListener('click', closeSendWishModal);
+    if (sendWishModal) {
+        sendWishModal.addEventListener('click', (e) => {
+            if (e.target === sendWishModal) closeSendWishModal();
+        });
+    }
+
+    // Wire "Send This Wish" action triggers
+    if (btnSendWishNav) btnSendWishNav.addEventListener('click', openSendWishModal);
+    if (btnStage0SendWish) btnStage0SendWish.addEventListener('click', openSendWishModal);
+    if (btnFinaleSendWish) btnFinaleSendWish.addEventListener('click', openSendWishModal);
+    if (btnPreviewBarSend) btnPreviewBarSend.addEventListener('click', openSendWishModal);
+
+    // Edit Wish actions from modal and preview bar
+    if (btnPreviewBarEdit) {
+        btnPreviewBarEdit.addEventListener('click', () => {
+            showCreateStage();
+        });
+    }
+    if (btnModalBackEdit) {
+        btnModalBackEdit.addEventListener('click', () => {
+            closeSendWishModal();
+            showCreateStage();
+        });
     }
 
     if (btnGenerateWishNav) btnGenerateWishNav.addEventListener('click', showCreateStage);
@@ -998,7 +1222,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const successBanner = document.getElementById('generated-success-banner');
             const successText = document.getElementById('generated-success-text');
             if (successBanner && successText) {
-                successText.textContent = `🎉 Surprise Ready for ${recipientName}! Share the link below with your friend:`;
+                successText.textContent = `🎉 Surprise Ready for ${recipientName}! Share the link below or preview it:`;
                 successBanner.style.display = 'block';
             }
 
@@ -1012,7 +1236,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Preview Generated Wish button
+    // Preview Generated Wish button: Enter Preview Mode
     if (btnPreviewGeneratedWish) {
         btnPreviewGeneratedWish.addEventListener('click', () => {
             const bName = inputBdayName ? inputBdayName.value.trim() : '';
@@ -1022,10 +1246,18 @@ document.addEventListener('DOMContentLoaded', () => {
             if (inputWishLang) currentLanguage = inputWishLang.value;
             if (inputCustomMsg) customMsg = inputCustomMsg.value.trim() || null;
 
+            isPreviewMode = true;
+            if (previewModeBar) {
+                previewModeBar.style.display = 'block';
+                if (previewRecipientName) previewRecipientName.textContent = recipientName;
+            }
+
             resetCandlesAndSurprises();
             renderAllContent();
             if (window.soundEngine) window.soundEngine.startMusic();
             goToStageIndex(0);
+            triggerBoomReveal();
+            showToast(`👁️ Previewing wish for ${recipientName}! Tap "Send Wish" whenever you are ready. ✨`);
         });
     }
 
@@ -1037,56 +1269,90 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => toastNotice.classList.remove('show'), 2800);
     }
 
-    // 1. WhatsApp Share
+    function getShareText(bName, sName) {
+        return `🎂 Happy Birthday, ${bName}! 🎉\n\n${sName} has created a special, heartfelt birthday surprise journey just for you! ✨\n\nOpen your birthday celebration here:`;
+    }
+
+    // Helper to share via WhatsApp
+    function shareViaWhatsApp(link, bName, sName) {
+        const text = `${getShareText(bName, sName)}\n${link}`;
+        window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`, '_blank');
+    }
+
+    // Helper to share via Telegram
+    function shareViaTelegram(link, bName, sName) {
+        const text = `🎂 Happy Birthday, ${bName}! 🎉 A personalized birthday celebration from ${sName} ❤️`;
+        window.open(`https://t.me/share/url?url=${encodeURIComponent(link)}&text=${encodeURIComponent(text)}`, '_blank');
+    }
+
+    // Helper to share via Instagram Direct
+    function shareViaInstagram(link, bName) {
+        navigator.clipboard.writeText(link).then(() => {
+            showToast(`Link copied! Open Instagram to paste for ${bName} 📸✨`);
+        }).catch(() => {
+            showToast('Link ready in input box!');
+        });
+        setTimeout(() => {
+            window.open('https://www.instagram.com/direct/inbox/', '_blank');
+        }, 500);
+    }
+
+    // Helper to share via SMS
+    function shareViaSms(link, bName, sName) {
+        const text = `🎂 Happy Birthday, ${bName}! 🎉 Special surprise from ${sName}: ${link}`;
+        window.open(`sms:?&body=${encodeURIComponent(text)}`, '_blank');
+    }
+
+    // Helper for Native Share sheet
+    function shareViaNative(link, bName, sName) {
+        const text = `🎂 Happy Birthday, ${bName}! 🎉 ${sName} has created a special interactive birthday celebration for you! ✨`;
+        if (navigator.share) {
+            navigator.share({
+                title: `Happy Birthday, ${bName}! 🎉`,
+                text: text,
+                url: link
+            }).then(() => {
+                showToast('Shared successfully! ✨');
+            }).catch(() => {});
+        } else {
+            navigator.clipboard.writeText(link).then(() => {
+                showToast('Link copied! Send it via any app 📋✨');
+            });
+        }
+    }
+
+    // Attach Generator Form Share button handlers
     if (btnShareWhatsapp) {
         btnShareWhatsapp.addEventListener('click', () => {
             const bName = inputBdayName.value.trim() || recipientName;
             const sName = inputSenderName.value.trim() || senderName;
-            const link = outputShareLink.value;
-            const text = `🎂 Happy Birthday, ${bName}! 🎉\n\n${sName} has created a special, heartfelt birthday surprise journey just for you! ✨\n\nOpen your birthday celebration here:\n${link}`;
-            window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`, '_blank');
+            shareViaWhatsApp(outputShareLink.value, bName, sName);
         });
     }
 
-    // 2. Telegram Share
     if (btnShareTelegram) {
         btnShareTelegram.addEventListener('click', () => {
             const bName = inputBdayName.value.trim() || recipientName;
             const sName = inputSenderName.value.trim() || senderName;
-            const link = outputShareLink.value;
-            const text = `🎂 Happy Birthday, ${bName}! 🎉 A personalized birthday celebration from ${sName} ❤️`;
-            window.open(`https://t.me/share/url?url=${encodeURIComponent(link)}&text=${encodeURIComponent(text)}`, '_blank');
+            shareViaTelegram(outputShareLink.value, bName, sName);
         });
     }
 
-    // 3. Instagram Share (Copies link & opens Instagram direct)
     if (btnShareInstagram) {
         btnShareInstagram.addEventListener('click', () => {
             const bName = inputBdayName.value.trim() || recipientName;
-            const link = outputShareLink.value;
-            navigator.clipboard.writeText(link).then(() => {
-                showToast(`Link copied! Open Instagram to paste for ${bName} 📸✨`);
-            }).catch(() => {
-                showToast('Link ready in input box!');
-            });
-            setTimeout(() => {
-                window.open('https://www.instagram.com/direct/inbox/', '_blank');
-            }, 500);
+            shareViaInstagram(outputShareLink.value, bName);
         });
     }
 
-    // 4. Message / SMS Share
     if (btnShareSms) {
         btnShareSms.addEventListener('click', () => {
             const bName = inputBdayName.value.trim() || recipientName;
             const sName = inputSenderName.value.trim() || senderName;
-            const link = outputShareLink.value;
-            const text = `🎂 Happy Birthday, ${bName}! 🎉 Special surprise from ${sName}: ${link}`;
-            window.open(`sms:?&body=${encodeURIComponent(text)}`, '_blank');
+            shareViaSms(outputShareLink.value, bName, sName);
         });
     }
 
-    // 5. Copy Link
     if (btnCopyUrl) {
         btnCopyUrl.addEventListener('click', () => {
             outputShareLink.select();
@@ -1099,27 +1365,59 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 6. Send Link / Native Share (Any app via device share sheet)
     if (btnShareNative) {
         btnShareNative.addEventListener('click', () => {
             const bName = inputBdayName.value.trim() || recipientName;
             const sName = inputSenderName.value.trim() || senderName;
-            const link = outputShareLink.value;
-            const text = `🎂 Happy Birthday, ${bName}! 🎉 ${sName} has created a special interactive birthday celebration for you! ✨`;
-            if (navigator.share) {
-                navigator.share({
-                    title: `Happy Birthday, ${bName}! 🎉`,
-                    text: text,
-                    url: link
-                }).then(() => {
-                    showToast('Shared successfully! ✨');
-                }).catch(() => {});
-            } else {
-                outputShareLink.select();
-                navigator.clipboard.writeText(link).then(() => {
-                    showToast('Link copied! Send it via any app 📋✨');
-                });
-            }
+            shareViaNative(outputShareLink.value, bName, sName);
+        });
+    }
+
+    // Attach Modal Share button handlers
+    if (btnModalCopyLink) {
+        btnModalCopyLink.addEventListener('click', () => {
+            const link = modalShareLinkInput ? modalShareLinkInput.value : buildCleanShareUrl(recipientName, senderName, currentLanguage, customMsg);
+            navigator.clipboard.writeText(link).then(() => {
+                showToast(`Share link copied! 📋✨`);
+                if (window.soundEngine) window.soundEngine.playSparkle();
+            }).catch(() => {
+                showToast('Link ready in input box!');
+            });
+        });
+    }
+
+    if (btnModalWhatsapp) {
+        btnModalWhatsapp.addEventListener('click', () => {
+            const link = modalShareLinkInput ? modalShareLinkInput.value : buildCleanShareUrl(recipientName, senderName, currentLanguage, customMsg);
+            shareViaWhatsApp(link, recipientName, senderName);
+        });
+    }
+
+    if (btnModalTelegram) {
+        btnModalTelegram.addEventListener('click', () => {
+            const link = modalShareLinkInput ? modalShareLinkInput.value : buildCleanShareUrl(recipientName, senderName, currentLanguage, customMsg);
+            shareViaTelegram(link, recipientName, senderName);
+        });
+    }
+
+    if (btnModalInstagram) {
+        btnModalInstagram.addEventListener('click', () => {
+            const link = modalShareLinkInput ? modalShareLinkInput.value : buildCleanShareUrl(recipientName, senderName, currentLanguage, customMsg);
+            shareViaInstagram(link, recipientName);
+        });
+    }
+
+    if (btnModalSms) {
+        btnModalSms.addEventListener('click', () => {
+            const link = modalShareLinkInput ? modalShareLinkInput.value : buildCleanShareUrl(recipientName, senderName, currentLanguage, customMsg);
+            shareViaSms(link, recipientName, senderName);
+        });
+    }
+
+    if (btnModalNative) {
+        btnModalNative.addEventListener('click', () => {
+            const link = modalShareLinkInput ? modalShareLinkInput.value : buildCleanShareUrl(recipientName, senderName, currentLanguage, customMsg);
+            shareViaNative(link, recipientName, senderName);
         });
     }
 

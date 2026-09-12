@@ -41,6 +41,10 @@
                 <button class="lang-btn" data-lang="mr" title="Marathi">मराठी</button>
             </div>
 
+            <button id="btn-send-wish-nav" class="glass-btn-icon" title="Send this wish to receiver">
+                <span>📤</span>
+                <span class="btn-text">Send Wish</span>
+            </button>
             <button id="btn-generate-wish" class="glass-btn-icon btn-generate-nav" title="Generate your personalized birthday wish">
                 <span>✨</span>
                 <span>Generate Wish</span>
@@ -50,6 +54,24 @@
                 <span>Replay</span>
             </button>
         </nav>
+
+        <!-- Floating Preview Mode Bar (Visible when sender previews the generated wish) -->
+        <aside id="preview-mode-bar" class="preview-mode-bar" style="display: none;" aria-label="Preview Mode Actions">
+            <div class="preview-bar-content">
+                <div class="preview-bar-left">
+                    <span class="preview-bar-badge">👁️ Preview Mode</span>
+                    <span class="preview-bar-text">Wish for <strong id="preview-recipient-name">Friend</strong></span>
+                </div>
+                <div class="preview-bar-actions">
+                    <button id="btn-preview-bar-send" class="btn-preview-send" title="Send this wish to receiver">
+                        <span>📤 Send This Wish</span>
+                    </button>
+                    <button id="btn-preview-bar-edit" class="btn-preview-edit" title="Edit wish details">
+                        <span>✏️ Edit</span>
+                    </button>
+                </div>
+            </div>
+        </aside>
 
         <!-- Floating Audio HUD -->
         <div id="audio-toggle" class="audio-hud" title="Toggle background music & sound effects">
@@ -162,6 +184,8 @@
             <!-- SCREEN 0: Main Direct Landing & Grand Birthday Wish Card -->
             <section id="stage-0" class="journey-stage" aria-label="Birthday Card">
                 <div class="glass-card">
+                    <div class="boom-shockwave"></div>
+
                     <!-- TO Recipient Badge -->
                     <div class="card-to-badge">
                         <span>🎁 TO:</span>
@@ -169,15 +193,15 @@
                         <span>✨</span>
                     </div>
 
-                    <div style="font-size: 2.8rem; margin: 0.2rem 0;">🎂</div>
+                    <div class="stage0-emoji-hero">🎂</div>
                     
                     <!-- Main Birthday Heading -->
                     <h1 class="reveal-sparkle-title" id="stage0-main-heading">Happy Birthday, Priya!</h1>
                     <div class="celebration-tag" id="stage0-tagline">Wishing you the most magical and happiest day! 🎉</div>
 
                     <!-- Birthday Message Content Paragraph -->
-                    <div class="typewriter-container" style="min-height: auto; margin: 1.2rem 0;">
-                        <p class="typewriter-text" id="stage0-wish-content" style="font-size: 1.15rem; line-height: 1.75; color: #f8f9fa;">
+                    <div class="typewriter-container">
+                        <p class="typewriter-text" id="stage0-wish-content">
                             <!-- Populated dynamically with unique main celebration wish -->
                         </p>
                     </div>
@@ -197,12 +221,15 @@
                     </div>
 
                     <!-- Interactive Journey Actions -->
-                    <div style="display: flex; gap: 0.8rem; justify-content: center; margin-top: 1.5rem; flex-wrap: wrap;">
+                    <div class="stage0-actions-wrap">
                         <button id="btn-start-journey" class="btn-glow-primary">
                             <span>✨ Read Personal Letter 💌</span>
                         </button>
-                        <button class="glass-btn-icon stage-next-btn" style="padding: 0.8rem 1.4rem; font-size: 0.95rem;">
+                        <button class="glass-btn-icon stage-next-btn">
                             <span>🎂 Cake &amp; Surprises ➔</span>
+                        </button>
+                        <button id="btn-stage0-send-wish" class="btn-glow-gold" title="Send this wish to someone">
+                            <span>📤 Send This Wish 🎁</span>
                         </button>
                     </div>
                 </div>
@@ -453,8 +480,11 @@
                     </div>
 
                     <div style="display: flex; gap: 0.8rem; justify-content: center; flex-wrap: wrap;">
-                        <button id="btn-generate-wish-footer" class="btn-glow-gold">
-                            <span>✨ Generate Birthday Wish</span>
+                        <button id="btn-finale-send-wish" class="btn-glow-gold" title="Send this wish to receiver">
+                            <span>📤 Send This Wish 🎁</span>
+                        </button>
+                        <button id="btn-generate-wish-footer" class="glass-btn-icon">
+                            <span>✨ Generate New Wish</span>
                         </button>
                         <button id="btn-replay-journey-footer" class="btn-glow-primary">
                             <span>🔄 Replay Journey</span>
@@ -478,6 +508,51 @@
         </footer>
 
     </main>
+
+    <!-- Send / Share Wish Modal -->
+    <div id="send-wish-modal" class="custom-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="send-modal-heading">
+        <div class="custom-modal-card glass-card">
+            <button class="custom-modal-close" id="btn-close-send-modal" title="Close" aria-label="Close modal">&times;</button>
+            <div class="badge-pill">💌 Share Birthday Surprise</div>
+            <div style="font-size: 2.2rem; margin: 0.2rem 0;">🎁</div>
+            <h2 class="title-serif" style="font-size: 1.85rem; margin-bottom: 0.3rem;" id="send-modal-heading">Send Birthday Surprise</h2>
+            <p class="subtitle-desc" style="margin: 0 auto 0.9rem auto; font-size: 0.9rem;" id="send-modal-subheading">
+                Your personalized celebration journey is ready! Send it directly to your friend:
+            </p>
+
+            <div class="form-group" style="margin-bottom: 0.8rem; text-align: left;">
+                <label class="form-label" style="font-size: 0.8rem;">🔗 Receiver's Unique Link</label>
+                <div style="display: flex; gap: 0.5rem;">
+                    <input type="text" id="modal-share-link-input" class="form-input" readonly style="color: var(--gold-primary); font-family: monospace; font-size: 0.85rem;">
+                    <button type="button" id="btn-modal-copy-link" class="btn-glow-gold" style="padding: 0.6rem 1rem; font-size: 0.85rem; white-space: nowrap;">
+                        📋 Copy
+                    </button>
+                </div>
+            </div>
+
+            <div class="share-links-grid" style="margin: 0.8rem 0;">
+                <button type="button" id="btn-modal-whatsapp" class="social-share-btn btn-whatsapp" title="Send via WhatsApp">
+                    <span>💬 WhatsApp</span>
+                </button>
+                <button type="button" id="btn-modal-telegram" class="social-share-btn btn-telegram" title="Send via Telegram">
+                    <span>✈️ Telegram</span>
+                </button>
+                <button type="button" id="btn-modal-instagram" class="social-share-btn btn-instagram" title="Share on Instagram">
+                    <span>📸 Instagram</span>
+                </button>
+                <button type="button" id="btn-modal-sms" class="social-share-btn btn-sms" title="Send via SMS">
+                    <span>💬 Message</span>
+                </button>
+                <button type="button" id="btn-modal-native" class="social-share-btn btn-native-share" title="Send via Any App">
+                    <span>🌐 Share Sheet</span>
+                </button>
+            </div>
+
+            <button type="button" id="btn-modal-back-edit" class="glass-btn-icon" style="margin-top: 0.6rem; width: 100%; justify-content: center;">
+                <span>✏️ Edit Wish Details</span>
+            </button>
+        </div>
+    </div>
 
     <!-- Polaroid Lightbox Modal -->
     <div id="lightbox-modal" class="lightbox-modal" role="dialog" aria-modal="true">
