@@ -23,12 +23,16 @@ class SoundEngine {
             'G5': 783.99, 'A5': 880.00, 'B5': 987.77, 'C6': 1046.50
         };
 
-        // Happy Birthday Melodic Sequence [note, duration in seconds, pause]
+        // Happy Birthday Melodic Sequence [note, duration in seconds, pause] - Fast & Upbeat
         this.birthdayMelody = [
-            ['G4', 0.35, 0.05], ['G4', 0.25, 0.05], ['A4', 0.6, 0.1], ['G4', 0.6, 0.1], ['C5', 0.6, 0.1], ['B4', 1.1, 0.3],
-            ['G4', 0.35, 0.05], ['G4', 0.25, 0.05], ['A4', 0.6, 0.1], ['G4', 0.6, 0.1], ['D5', 0.6, 0.1], ['C5', 1.1, 0.3],
-            ['G4', 0.35, 0.05], ['G4', 0.25, 0.05], ['G5', 0.7, 0.1], ['E5', 0.6, 0.1], ['C5', 0.6, 0.1], ['B4', 0.6, 0.1], ['A4', 1.1, 0.3],
-            ['F5', 0.35, 0.05], ['F5', 0.25, 0.05], ['E5', 0.7, 0.1], ['C5', 0.6, 0.1], ['D5', 0.6, 0.1], ['C5', 1.4, 0.6]
+            // Phrase 1: "Happy Birthday to you"
+            ['G4', 0.20, 0.02], ['G4', 0.18, 0.03], ['A4', 0.36, 0.04], ['G4', 0.36, 0.04], ['C5', 0.38, 0.04], ['B4', 0.65, 0.12],
+            // Phrase 2: "Happy Birthday to you"
+            ['G4', 0.20, 0.02], ['G4', 0.18, 0.03], ['A4', 0.36, 0.04], ['G4', 0.36, 0.04], ['D5', 0.38, 0.04], ['C5', 0.65, 0.12],
+            // Phrase 3: "Happy Birthday dear friend"
+            ['G4', 0.20, 0.02], ['G4', 0.18, 0.03], ['G5', 0.42, 0.04], ['E5', 0.36, 0.04], ['C5', 0.36, 0.04], ['B4', 0.36, 0.04], ['A4', 0.68, 0.14],
+            // Phrase 4: "Happy Birthday to you!"
+            ['F5', 0.20, 0.02], ['F5', 0.18, 0.03], ['E5', 0.40, 0.04], ['C5', 0.36, 0.04], ['D5', 0.38, 0.04], ['C5', 0.85, 0.22]
         ];
         this.wasPlayingBeforeLeave = false;
     }
@@ -362,3 +366,22 @@ window.addEventListener('pagehide', () => {
 window.addEventListener('beforeunload', () => {
     if (window.soundEngine) window.soundEngine.stopMusic();
 });
+
+// Mobile & Mac Safari User-Gesture Audio Unlock
+const unlockWebAudioOnUserGesture = () => {
+    if (window.soundEngine) {
+        if (!window.soundEngine.ctx) {
+            window.soundEngine.init();
+        } else if (window.soundEngine.ctx.state === 'suspended') {
+            window.soundEngine.ctx.resume();
+        }
+    }
+    ['click', 'touchstart', 'touchend', 'pointerdown'].forEach(ev => {
+        document.removeEventListener(ev, unlockWebAudioOnUserGesture);
+    });
+};
+
+['click', 'touchstart', 'touchend', 'pointerdown'].forEach(ev => {
+    document.addEventListener(ev, unlockWebAudioOnUserGesture, { passive: true, once: true });
+});
+

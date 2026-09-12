@@ -101,13 +101,19 @@
 
 html, body {
     width: 100%;
-    height: 100%;
+    min-height: 100vh;
+    min-height: 100dvh;
     background-color: var(--bg-dark);
     font-family: var(--font-ui);
     color: var(--text-main);
     user-select: none;
     -webkit-user-select: none;
     overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    touch-action: manipulation;
 }
 
 /* Dynamic Ambient Glow Orbs */
@@ -117,6 +123,7 @@ html, body {
     left: 0;
     width: 100vw;
     height: 100vh;
+    height: 100dvh;
     z-index: 1;
     overflow: hidden;
     pointer-events: none;
@@ -167,12 +174,16 @@ html, body {
     position: relative;
     width: 100%;
     min-height: 100vh;
+    min-height: 100dvh;
     z-index: 5;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 4.5rem 1.5rem 5rem 1.5rem;
+    padding-top: max(4.5rem, calc(env(safe-area-inset-top, 0px) + 3.8rem));
+    padding-bottom: max(5.5rem, calc(env(safe-area-inset-bottom, 0px) + 4.8rem));
+    padding-left: max(1rem, env(safe-area-inset-left, 1rem));
+    padding-right: max(1rem, env(safe-area-inset-right, 1rem));
     overflow-y: auto;
 }
 
@@ -1556,35 +1567,54 @@ html, body {
     }
 }
 
-/* Responsive Rules */
+/* Responsive Rules for Mobile, iPad, Mac and Small Devices */
 @media (max-width: 768px) {
     #app-container {
-        padding: 1rem;
+        padding-top: max(3.8rem, calc(env(safe-area-inset-top, 0px) + 3.2rem));
+        padding-bottom: max(4.8rem, calc(env(safe-area-inset-bottom, 0px) + 4.2rem));
+        padding-left: max(0.8rem, env(safe-area-inset-left, 0.8rem));
+        padding-right: max(0.8rem, env(safe-area-inset-right, 0.8rem));
+    }
+
+    .top-nav {
+        top: max(0.8rem, env(safe-area-inset-top, 0.8rem));
+        left: max(0.8rem, env(safe-area-inset-left, 0.8rem));
+        gap: 0.4rem;
+    }
+
+    .audio-hud {
+        top: max(0.8rem, env(safe-area-inset-top, 0.8rem));
+        right: max(0.8rem, env(safe-area-inset-right, 0.8rem));
+        padding: 0.45rem 0.75rem;
+    }
+
+    .audio-label {
+        display: none; /* Keep clean and compact icon on mobile */
     }
 
     .glass-card {
-        padding: 1.8rem 1.2rem;
+        padding: 1.8rem 1.1rem;
     }
 
     .title-serif {
-        font-size: 2.1rem;
+        font-size: 1.85rem;
     }
 
     .reveal-sparkle-title {
-        font-size: 2.5rem;
+        font-size: 2.1rem;
     }
 
     .polaroid-grid {
-        gap: 0.8rem;
+        gap: 0.6rem;
     }
 
     .polaroid-card {
-        width: 140px;
-        padding: 8px 8px 20px 8px;
+        width: 120px;
+        padding: 6px 6px 16px 6px;
     }
 
     .polaroid-img-wrap {
-        height: 110px;
+        height: 95px;
     }
 
     .envelope-wrapper {
@@ -1607,19 +1637,59 @@ html, body {
 
     .secret-letter {
         width: 220px;
-        padding: 1rem;
+        padding: 0.8rem;
     }
 
     .secret-letter-text {
-        font-size: 1.15rem;
+        font-size: 1.05rem;
     }
 
     .bday-wishes-pills {
-        gap: 0.4rem;
+        gap: 0.35rem;
     }
 
     .bday-wish-tag {
-        font-size: 0.75rem;
-        padding: 0.25rem 0.6rem;
+        font-size: 0.72rem;
+        padding: 0.22rem 0.55rem;
     }
 }
+
+@media (max-width: 480px) {
+    .top-nav .lang-selector-wrap {
+        padding: 2px;
+    }
+
+    .lang-btn {
+        padding: 0.28rem 0.55rem;
+        font-size: 0.74rem;
+    }
+
+    .btn-generate-nav span:last-child {
+        display: none; /* Compact button on narrow phones */
+    }
+
+    .btn-generate-nav {
+        padding: 0.45rem 0.65rem;
+    }
+
+    .cake-plate {
+        width: 200px;
+    }
+
+    .cake-layer.bottom { width: 180px; }
+    .cake-layer.middle { width: 140px; }
+    .cake-layer.top { width: 100px; }
+
+    .oracle-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .oracle-card-btn {
+        padding: 0.8rem 0.6rem;
+    }
+
+    .modal-card {
+        padding: 1.4rem 1rem;
+    }
+}
+
