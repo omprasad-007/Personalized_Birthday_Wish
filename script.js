@@ -105,20 +105,20 @@ document.addEventListener('DOMContentLoaded', () => {
     // Is this a direct shared personalized wish link?
     const isSharedWish = Boolean(urlRecipient || (urlPayload && urlPayload.r));
 
-    // Retrieve stored sender/receiver data if available
+    // Retrieve stored sender/receiver data ONLY if this is a direct shared wish or stored custom wish
     let storedWish = null;
     try {
         const rawStored = localStorage.getItem('birthday_user_wish');
         if (rawStored) storedWish = JSON.parse(rawStored);
     } catch (e) {}
 
-    let recipientName = urlRecipient || (storedWish && storedWish.to) || 'Priya';
-    let senderName = urlSender || (storedWish && storedWish.from) || 'Rahul';
-    let customMsg = urlMsg !== null ? urlMsg : ((storedWish && storedWish.msg) || null);
+    let recipientName = urlRecipient || (isSharedWish && storedWish && storedWish.to) || '';
+    let senderName = urlSender || (isSharedWish && storedWish && storedWish.from) || '';
+    let customMsg = urlMsg !== null ? urlMsg : ((isSharedWish && storedWish && storedWish.msg) || null);
 
     if (urlLang && ['en', 'hi', 'mr'].includes(urlLang)) {
         currentLanguage = urlLang;
-    } else if (storedWish && storedWish.lang && ['en', 'hi', 'mr'].includes(storedWish.lang)) {
+    } else if (isSharedWish && storedWish && storedWish.lang && ['en', 'hi', 'mr'].includes(storedWish.lang)) {
         currentLanguage = storedWish.lang;
     }
 
@@ -1158,18 +1158,18 @@ document.addEventListener('DOMContentLoaded', () => {
     // Edit Wish actions from modal and preview bar
     if (btnPreviewBarEdit) {
         btnPreviewBarEdit.addEventListener('click', () => {
-            showCreateStage();
+            showCreateStage(true);
         });
     }
     if (btnModalBackEdit) {
         btnModalBackEdit.addEventListener('click', () => {
             closeSendWishModal();
-            showCreateStage();
+            showCreateStage(true);
         });
     }
 
-    if (btnGenerateWishNav) btnGenerateWishNav.addEventListener('click', showCreateStage);
-    if (btnGenerateWishFooter) btnGenerateWishFooter.addEventListener('click', showCreateStage);
+    if (btnGenerateWishNav) btnGenerateWishNav.addEventListener('click', () => showCreateStage(false));
+    if (btnGenerateWishFooter) btnGenerateWishFooter.addEventListener('click', () => showCreateStage(false));
 
     // Live update share link on any field input
     [inputBdayName, inputSenderName, inputWishLang, inputCustomMsg].forEach(input => {
@@ -1241,8 +1241,16 @@ document.addEventListener('DOMContentLoaded', () => {
         btnPreviewGeneratedWish.addEventListener('click', () => {
             const bName = inputBdayName ? inputBdayName.value.trim() : '';
             const sName = inputSenderName ? inputSenderName.value.trim() : '';
-            if (bName) recipientName = bName;
-            if (sName) senderName = sName;
+
+            if (!bName || !sName) {
+                showToast('Please enter both names first! ✨');
+                if (inputBdayName && !bName) inputBdayName.focus();
+                else if (inputSenderName && !sName) inputSenderName.focus();
+                return;
+            }
+
+            recipientName = bName;
+            senderName = sName;
             if (inputWishLang) currentLanguage = inputWishLang.value;
             if (inputCustomMsg) customMsg = inputCustomMsg.value.trim() || null;
 
