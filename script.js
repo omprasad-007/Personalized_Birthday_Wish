@@ -12,14 +12,27 @@ document.addEventListener('DOMContentLoaded', () => {
     let candlesBlown = false;
     let envelopeOpened = false;
 
-    // Helper: URL-safe Base64 Encoding and Decoding for Clean URLs
+    // XOR Scramble Key so no plaintext or readable names exist anywhere in generated URLs
+    const CIPHER_KEY = [0x5b, 0x8c, 0x3d, 0x9f, 0x24, 0x71, 0xa5, 0x6e, 0x17, 0xf3];
+
+    function xorTransform(bytes) {
+        const result = new Uint8Array(bytes.length);
+        for (let i = 0; i < bytes.length; i++) {
+            result[i] = bytes[i] ^ CIPHER_KEY[i % CIPHER_KEY.length];
+        }
+        return result;
+    }
+
+    // Helper: Encrypted URL-safe Base64 Encoding and Decoding for Clean URLs (No plaintext names in URL)
     function encodeWishPayload(data) {
         try {
-            const jsonStr = JSON.stringify(data);
-            const bytes = new TextEncoder().encode(jsonStr);
+            const compact = [data.r || '', data.s || '', data.l || 'en', data.m || ''];
+            const jsonStr = JSON.stringify(compact);
+            const utf8Bytes = new TextEncoder().encode(jsonStr);
+            const encryptedBytes = xorTransform(utf8Bytes);
             let binary = '';
-            for (let i = 0; i < bytes.byteLength; i++) {
-                binary += String.fromCharCode(bytes[i]);
+            for (let i = 0; i < encryptedBytes.byteLength; i++) {
+                binary += String.fromCharCode(encryptedBytes[i]);
             }
             return btoa(binary).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
         } catch(e) {
@@ -28,18 +41,44 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function decodeWishPayload(encoded) {
+        if (!encoded) return null;
         try {
             let base64 = encoded.replace(/-/g, '+').replace(/_/g, '/');
             while (base64.length % 4) base64 += '=';
             const binary = atob(base64);
-            const bytes = new Uint8Array(binary.length);
+            const rawBytes = new Uint8Array(binary.length);
             for (let i = 0; i < binary.length; i++) {
-                bytes[i] = binary.charCodeAt(i);
+                rawBytes[i] = binary.charCodeAt(i);
             }
-            const jsonStr = new TextDecoder().decode(bytes);
-            return JSON.parse(jsonStr);
-        } catch (e) {
+            const decryptedBytes = xorTransform(rawBytes);
+            const jsonStr = new TextDecoder().decode(decryptedBytes);
+            const parsed = JSON.parse(jsonStr);
+            if (Array.isArray(parsed)) {
+                return {
+                    r: parsed[0] || null,
+                    s: parsed[1] || null,
+                    l: parsed[2] || 'en',
+                    m: parsed[3] || null
+                };
+            } else if (parsed && typeof parsed === 'object') {
+                return parsed;
+            }
             return null;
+        } catch (e) {
+            // Fallback legacy decoding if needed
+            try {
+                let base64 = encoded.replace(/-/g, '+').replace(/_/g, '/');
+                while (base64.length % 4) base64 += '=';
+                const binary = atob(base64);
+                const bytes = new Uint8Array(binary.length);
+                for (let i = 0; i < binary.length; i++) {
+                    bytes[i] = binary.charCodeAt(i);
+                }
+                const jsonStr = new TextDecoder().decode(bytes);
+                return JSON.parse(jsonStr);
+            } catch (err) {
+                return null;
+            }
         }
     }
 
@@ -63,6 +102,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const urlLang = urlPayload ? urlPayload.l : safeDecode(urlParams.get('lang'), null);
     const urlMsg = urlPayload ? urlPayload.m : safeDecode(urlParams.get('msg'), null);
 
+    // Is this a direct shared personalized wish link?
+    const isSharedWish = Boolean(urlRecipient || (urlPayload && urlPayload.r));
+
     // Retrieve stored sender/receiver data if available
     let storedWish = null;
     try {
@@ -80,28 +122,32 @@ document.addEventListener('DOMContentLoaded', () => {
         currentLanguage = storedWish.lang;
     }
 
-    // Persist active names to localStorage so receiver never loses them upon refresh
-    try {
-        localStorage.setItem('birthday_user_wish', JSON.stringify({
-            to: recipientName,
-            from: senderName,
-            msg: customMsg,
-            lang: currentLanguage
-        }));
-    } catch (e) {}
+    let inGeneratorView = !isSharedWish;
 
-    // Clean address bar so NO parameters or names are shown in the browser URL bar
-    if (window.history && window.history.replaceState) {
-        window.history.replaceState({}, document.title, window.location.pathname);
-    }
+    if (isSharedWish) {
+        // Persist active names to localStorage so receiver never loses them upon refresh
+        try {
+            localStorage.setItem('birthday_user_wish', JSON.stringify({
+                to: recipientName,
+                from: senderName,
+                msg: customMsg,
+                lang: currentLanguage
+            }));
+        } catch (e) {}
 
-    // Trigger celebration effects initially on load
-    setTimeout(() => {
-        if (window.confettiFX) {
-            window.confettiFX.cannon(true);
-            setTimeout(() => window.confettiFX.cannon(false), 300);
+        // Clean address bar so NO parameters or names are shown in the browser URL bar
+        if (window.history && window.history.replaceState) {
+            window.history.replaceState({}, document.title, window.location.pathname);
         }
-    }, 400);
+
+        // Trigger celebration effects initially on load for receiver
+        setTimeout(() => {
+            if (window.confettiFX) {
+                window.confettiFX.cannon(true);
+                setTimeout(() => window.confettiFX.cannon(false), 300);
+            }
+        }, 400);
+    }
 
     // =========================================================================
     // CUSTOM MEMORIES PHOTOS STATE
@@ -529,6 +575,14 @@ document.addEventListener('DOMContentLoaded', () => {
     function renderStepDots() {
         const container = document.getElementById('step-indicators-container');
         if (!container) return;
+
+        if (inGeneratorView) {
+            container.style.display = 'none';
+            return;
+        } else {
+            container.style.display = 'flex';
+        }
+
         const activeIds = getActiveStageIds();
         const titles = {
             'stage-0': 'Main Wish',
@@ -569,7 +623,55 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    function showCreateStage() {
+        inGeneratorView = true;
+
+        // Deactivate all journey stages
+        document.querySelectorAll('.journey-stage').forEach(st => {
+            st.classList.remove('active', 'exit-left');
+        });
+
+        const stageCreate = document.getElementById('stage-create');
+        if (stageCreate) {
+            stageCreate.classList.add('active');
+            stageCreate.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        // Populate fields with active values if available
+        if (inputBdayName) {
+            inputBdayName.value = (isSharedWish || storedWish) ? recipientName : '';
+        }
+        if (inputSenderName) {
+            inputSenderName.value = (isSharedWish || storedWish) ? senderName : '';
+        }
+        if (inputWishLang) {
+            inputWishLang.value = currentLanguage;
+        }
+        if (inputCustomMsg) {
+            inputCustomMsg.value = customMsg || '';
+        }
+
+        updatePhotoPreviewsStrip();
+        updateShareLinkField();
+        renderStepDots();
+
+        const btnRestart = document.getElementById('btn-restart-journey');
+        if (btnRestart) btnRestart.style.display = 'none';
+
+        const btnGenerateWishNav = document.getElementById('btn-generate-wish');
+        if (btnGenerateWishNav) {
+            btnGenerateWishNav.classList.add('active');
+        }
+    }
+
     function goToStageIndex(index) {
+        inGeneratorView = false;
+
+        const stageCreate = document.getElementById('stage-create');
+        if (stageCreate) {
+            stageCreate.classList.remove('active', 'exit-left');
+        }
+
         const activeIds = getActiveStageIds();
         if (index < 0 || index >= activeIds.length) return;
 
@@ -593,6 +695,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const btnRestart = document.getElementById('btn-restart-journey');
         if (btnRestart) {
             btnRestart.style.display = currentStageIndex > 0 ? 'inline-flex' : 'none';
+        }
+
+        const btnGenerateWishNav = document.getElementById('btn-generate-wish');
+        if (btnGenerateWishNav) {
+            btnGenerateWishNav.classList.remove('active');
         }
 
         const activeId = activeIds[index];
@@ -634,7 +741,9 @@ document.addEventListener('DOMContentLoaded', () => {
         btn.addEventListener('click', (e) => {
             e.stopPropagation();
             currentLanguage = btn.getAttribute('data-lang') || 'en';
+            if (inputWishLang) inputWishLang.value = currentLanguage;
             renderAllContent();
+            updateShareLinkField();
             if (window.soundEngine) window.soundEngine.playSparkle();
         });
     });
@@ -768,7 +877,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (btnAddPhotosStage2) {
         btnAddPhotosStage2.addEventListener('click', () => {
-            openGenerateModal();
+            showCreateStage();
             setTimeout(() => {
                 const dropzone = document.querySelector('.photo-upload-dropzone');
                 if (dropzone) dropzone.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -797,14 +906,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // =========================================================================
     const btnGenerateWishNav = document.getElementById('btn-generate-wish');
     const btnGenerateWishFooter = document.getElementById('btn-generate-wish-footer');
-    const createModal = document.getElementById('create-modal');
     const createWishForm = document.getElementById('create-wish-form');
     const inputBdayName = document.getElementById('input-bday-name');
     const inputSenderName = document.getElementById('input-sender-name');
     const inputWishLang = document.getElementById('input-wish-lang');
     const inputCustomMsg = document.getElementById('input-custom-msg');
     const outputShareLink = document.getElementById('output-share-link');
-    const btnCloseCreateModal = document.getElementById('btn-close-create-modal');
+    const btnPreviewGeneratedWish = document.getElementById('btn-preview-generated-wish');
     const toastNotice = document.getElementById('toast-notice');
 
     // Share buttons
@@ -828,56 +936,28 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function updateShareLinkField() {
-        const bName = inputBdayName.value.trim() || 'Friend';
-        const sName = inputSenderName.value.trim() || recipientName || senderName;
-        const langCode = inputWishLang.value || currentLanguage;
-        const cMsg = inputCustomMsg.value.trim();
+        if (!outputShareLink) return;
+        const bName = (inputBdayName && inputBdayName.value.trim()) || recipientName || 'Friend';
+        const sName = (inputSenderName && inputSenderName.value.trim()) || senderName || 'Your Friend';
+        const langCode = (inputWishLang && inputWishLang.value) || currentLanguage;
+        const cMsg = inputCustomMsg ? inputCustomMsg.value.trim() : '';
         outputShareLink.value = buildCleanShareUrl(bName, sName, langCode, cMsg);
     }
 
-    function openGenerateModal() {
-        inputSenderName.value = recipientName || senderName;
-        inputBdayName.value = '';
-        inputBdayName.placeholder = 'Enter friend\'s name (e.g. Pooja / Amit)...';
-        inputWishLang.value = currentLanguage;
-        inputCustomMsg.value = '';
-        updatePhotoPreviewsStrip();
-        updateShareLinkField();
-        createModal.classList.add('active');
-        setTimeout(() => inputBdayName.focus(), 150);
-    }
-
-    function closeGenerateModal() {
-        if (createModal) {
-            createModal.classList.remove('active');
-        }
-    }
-
-    if (btnGenerateWishNav) btnGenerateWishNav.addEventListener('click', openGenerateModal);
-    if (btnGenerateWishFooter) btnGenerateWishFooter.addEventListener('click', openGenerateModal);
-    
-    // Corner Cross Button & Backdrop to go back directly to current wish
-    if (btnCloseCreateModal) {
-        btnCloseCreateModal.addEventListener('click', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            closeGenerateModal();
-        });
-    }
-
-    if (createModal) {
-        createModal.addEventListener('click', (e) => {
-            if (e.target === createModal) {
-                closeGenerateModal();
-            }
-        });
-    }
+    if (btnGenerateWishNav) btnGenerateWishNav.addEventListener('click', showCreateStage);
+    if (btnGenerateWishFooter) btnGenerateWishFooter.addEventListener('click', showCreateStage);
 
     // Live update share link on any field input
     [inputBdayName, inputSenderName, inputWishLang, inputCustomMsg].forEach(input => {
         if (input) {
             input.addEventListener('input', updateShareLinkField);
-            input.addEventListener('change', updateShareLinkField);
+            input.addEventListener('change', () => {
+                if (input === inputWishLang) {
+                    currentLanguage = inputWishLang.value;
+                    renderAllContent();
+                }
+                updateShareLinkField();
+            });
         }
     });
 
@@ -885,10 +965,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (createWishForm) {
         createWishForm.addEventListener('submit', (e) => {
             e.preventDefault();
-            const bName = inputBdayName.value.trim();
-            const sName = inputSenderName.value.trim();
-            const langCode = inputWishLang.value;
-            const cMsg = inputCustomMsg.value.trim();
+            const bName = inputBdayName ? inputBdayName.value.trim() : '';
+            const sName = inputSenderName ? inputSenderName.value.trim() : '';
+            const langCode = inputWishLang ? inputWishLang.value : currentLanguage;
+            const cMsg = inputCustomMsg ? inputCustomMsg.value.trim() : '';
 
             if (!bName || !sName) {
                 showToast('Please enter both names! ✨');
@@ -913,7 +993,14 @@ document.addEventListener('DOMContentLoaded', () => {
             resetCandlesAndSurprises();
             updateShareLinkField();
             renderAllContent();
-            goToStageIndex(0); // Jump directly to generated landing wish
+
+            // Show success banner
+            const successBanner = document.getElementById('generated-success-banner');
+            const successText = document.getElementById('generated-success-text');
+            if (successBanner && successText) {
+                successText.textContent = `🎉 Surprise Ready for ${recipientName}! Share the link below with your friend:`;
+                successBanner.style.display = 'block';
+            }
 
             if (window.soundEngine) window.soundEngine.playCelebrationFanfare();
             if (window.confettiFX) {
@@ -921,7 +1008,24 @@ document.addEventListener('DOMContentLoaded', () => {
                 setTimeout(() => window.confettiFX.cannon(false), 300);
             }
 
-            showToast(`✨ Birthday wish generated for ${recipientName}! Share the link below 🎁`);
+            showToast(`✨ Birthday surprise generated for ${recipientName}! 🎁`);
+        });
+    }
+
+    // Preview Generated Wish button
+    if (btnPreviewGeneratedWish) {
+        btnPreviewGeneratedWish.addEventListener('click', () => {
+            const bName = inputBdayName ? inputBdayName.value.trim() : '';
+            const sName = inputSenderName ? inputSenderName.value.trim() : '';
+            if (bName) recipientName = bName;
+            if (sName) senderName = sName;
+            if (inputWishLang) currentLanguage = inputWishLang.value;
+            if (inputCustomMsg) customMsg = inputCustomMsg.value.trim() || null;
+
+            resetCandlesAndSurprises();
+            renderAllContent();
+            if (window.soundEngine) window.soundEngine.startMusic();
+            goToStageIndex(0);
         });
     }
 
@@ -1213,22 +1317,32 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Keyboard Navigation
     window.addEventListener('keydown', (e) => {
+        if (inGeneratorView) {
+            if (e.key === 'Escape' && lightboxModal && lightboxModal.classList.contains('active')) {
+                lightboxModal.classList.remove('active');
+            }
+            return;
+        }
         const activeIds = getActiveStageIds();
         if (e.key === 'ArrowRight' || e.key === ' ') {
-            if (currentStageIndex < activeIds.length - 1 && (!createModal || !createModal.classList.contains('active'))) {
+            if (currentStageIndex < activeIds.length - 1) {
                 goToStageIndex(currentStageIndex + 1);
             }
         } else if (e.key === 'ArrowLeft') {
-            if (currentStageIndex > 0 && (!createModal || !createModal.classList.contains('active'))) {
+            if (currentStageIndex > 0) {
                 goToStageIndex(currentStageIndex - 1);
             }
         } else if (e.key === 'Escape') {
             if (lightboxModal && lightboxModal.classList.contains('active')) lightboxModal.classList.remove('active');
-            if (createModal && createModal.classList.contains('active')) createModal.classList.remove('active');
         }
     });
 
-    // Initial Candles & Content Setup
+    // Initial Setup
     resetCandlesAndSurprises();
     renderAllContent();
+    if (inGeneratorView) {
+        showCreateStage();
+    } else {
+        goToStageIndex(0);
+    }
 });

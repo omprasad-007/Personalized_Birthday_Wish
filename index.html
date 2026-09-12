@@ -65,8 +65,102 @@
         <!-- Stage Viewport Container -->
         <div class="stage-viewport">
 
+            <!-- SCREEN CREATE: Generate / Create Personalized Birthday Surprise -->
+            <section id="stage-create" class="journey-stage" aria-label="Create Birthday Surprise">
+                <div class="glass-card generator-card">
+                    <div class="badge-pill">✨ Create Birthday Surprise 🎁</div>
+                    <div style="font-size: 2.8rem; margin: 0.2rem 0;">🎉</div>
+                    <h1 class="reveal-sparkle-title" style="font-size: 2.2rem; margin-bottom: 0.4rem;">Make Someone's Birthday Magical</h1>
+                    <p class="subtitle-desc" style="margin: 0 auto 1.4rem auto; font-size: 0.95rem; max-width: 520px;">
+                        Enter the details below to generate a personalized interactive celebration journey with secret letters, cake, candles &amp; surprises!
+                    </p>
+
+                    <form id="create-wish-form">
+                        <div class="form-row-2col">
+                            <div class="form-group">
+                                <label class="form-label" for="input-bday-name">🎂 Birthday Person's Name (Receiver) *</label>
+                                <input type="text" id="input-bday-name" class="form-input" placeholder="e.g. Priya / Rohan / Ananya" required autocomplete="off">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="input-sender-name">❤️ Your Name (Sender) *</label>
+                                <input type="text" id="input-sender-name" class="form-input" placeholder="e.g. Rahul / Amit / Sneha" required autocomplete="off">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="input-wish-lang">🌐 Celebration Language</label>
+                            <select id="input-wish-lang" class="form-input" style="cursor: pointer;">
+                                <option value="en">English (Default)</option>
+                                <option value="hi">हिंदी (Hindi)</option>
+                                <option value="mr">मराठी (Marathi)</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="input-custom-msg">💌 Personal Secret Note (Optional)</label>
+                            <textarea id="input-custom-msg" class="form-textarea" rows="2" placeholder="Write a special surprise note for the wax-sealed secret letter..."></textarea>
+                        </div>
+
+                        <div class="form-group photo-upload-box">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
+                                <span class="form-label" style="margin-bottom: 0;">📸 Add Custom Photos (Up to 3, Optional)</span>
+                                <button type="button" id="btn-reset-photos" style="background: none; border: none; color: #ff758c; font-size: 0.75rem; cursor: pointer; text-decoration: underline;">Reset Photos</button>
+                            </div>
+                            <label for="input-custom-photos" class="photo-upload-dropzone">
+                                <span style="font-size: 1.3rem;">📷</span>
+                                <span style="font-size: 0.85rem; color: var(--gold-primary); font-weight: 600;">Click to upload photos from your device</span>
+                                <span style="font-size: 0.75rem; color: var(--text-muted);">Stored locally for the receiver</span>
+                            </label>
+                            <input type="file" id="input-custom-photos" accept="image/*" multiple style="display: none;">
+                            <div id="photo-previews-strip" class="photo-previews-strip"></div>
+                        </div>
+
+                        <button type="submit" id="btn-submit-generate" class="btn-glow-primary" style="width: 100%; margin: 0.8rem 0; justify-content: center; font-size: 1.05rem;">
+                            <span>✨ Generate Birthday Surprise 🎁</span>
+                        </button>
+
+                        <!-- Share & Preview Section -->
+                        <div id="generated-actions-wrap" class="generated-actions-wrap">
+                            <div class="generated-success-banner" id="generated-success-banner" style="display: none;">
+                                <span id="generated-success-text">🎉 Surprise Ready! Share the link below with your friend:</span>
+                            </div>
+
+                            <div class="form-group" style="margin-top: 0.8rem; margin-bottom: 0.6rem;">
+                                <label class="form-label">🔗 Shareable Link for Receiver</label>
+                                <input type="text" id="output-share-link" class="form-input" readonly style="color: var(--gold-primary); font-family: monospace; font-size: 0.88rem;">
+                            </div>
+
+                            <div class="share-links-grid" id="modal-share-grid">
+                                <button type="button" id="btn-share-whatsapp" class="social-share-btn btn-whatsapp" title="Send via WhatsApp">
+                                    <span>💬 WhatsApp</span>
+                                </button>
+                                <button type="button" id="btn-share-telegram" class="social-share-btn btn-telegram" title="Send via Telegram">
+                                    <span>✈️ Telegram</span>
+                                </button>
+                                <button type="button" id="btn-share-instagram" class="social-share-btn btn-instagram" title="Share on Instagram">
+                                    <span>📸 Instagram</span>
+                                </button>
+                                <button type="button" id="btn-share-sms" class="social-share-btn btn-sms" title="Send via Text Message / SMS">
+                                    <span>💬 Message</span>
+                                </button>
+                                <button type="button" id="btn-copy-url" class="social-share-btn btn-copy-link" title="Copy Link to Clipboard">
+                                    <span>📋 Copy Link</span>
+                                </button>
+                                <button type="button" id="btn-share-native" class="social-share-btn btn-native-share" title="Send Link via Any App">
+                                    <span>🌐 Send Link</span>
+                                </button>
+                            </div>
+
+                            <button type="button" id="btn-preview-generated-wish" class="btn-glow-gold" style="width: 100%; margin-top: 1rem; justify-content: center; font-size: 1.05rem;">
+                                <span>👁️ Preview &amp; Experience Journey ➔</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+
             <!-- SCREEN 0: Main Direct Landing & Grand Birthday Wish Card -->
-            <section id="stage-0" class="journey-stage active" aria-label="Birthday Card">
+            <section id="stage-0" class="journey-stage" aria-label="Birthday Card">
                 <div class="glass-card">
                     <!-- TO Recipient Badge -->
                     <div class="card-to-badge">
@@ -396,84 +490,7 @@
         </div>
     </div>
 
-    <!-- Generate Your Own Birthday Surprise Modal -->
-    <div id="create-modal" class="modal-overlay" role="dialog" aria-modal="true">
-        <div class="modal-card">
-            <div class="modal-header">
-                <h3 class="modal-title" id="modal-heading-title">✨ Create Birthday Surprise</h3>
-                <button class="modal-close-btn" id="btn-close-create-modal" title="Close">&times;</button>
-            </div>
-            <p style="font-size: 0.88rem; color: var(--text-muted); margin-top: -0.8rem; margin-bottom: 1.2rem; line-height: 1.5;" id="modal-subheading-text">
-                Enter your friend's name and your name to create a personalized birthday celebration link.
-            </p>
-            <form id="create-wish-form">
-                <div class="form-group">
-                    <label class="form-label" for="input-bday-name">🎂 Birthday Person's Name (Receiver)</label>
-                    <input type="text" id="input-bday-name" class="form-input" placeholder="e.g. Priya / Rohan / Ananya" required>
-                </div>
-                <div class="form-group">
-                    <label class="form-label" for="input-sender-name">❤️ Your Name (Sender)</label>
-                    <input type="text" id="input-sender-name" class="form-input" placeholder="e.g. Rahul / Amit / Sneha" required>
-                </div>
-                <div class="form-group">
-                    <label class="form-label" for="input-wish-lang">🌐 Celebration Language</label>
-                    <select id="input-wish-lang" class="form-input" style="cursor: pointer;">
-                        <option value="en">English</option>
-                        <option value="hi">हिंदी (Hindi)</option>
-                        <option value="mr">मराठी (Marathi)</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label class="form-label" for="input-custom-msg">💌 Personal Secret Note (Optional)</label>
-                    <textarea id="input-custom-msg" class="form-textarea" rows="2" placeholder="Write a special surprise note for the secret letter..."></textarea>
-                </div>
 
-                <div class="form-group" style="border: 1px dashed rgba(255,255,255,0.25); border-radius: var(--radius-sm); padding: 0.8rem; background: rgba(255,255,255,0.03);">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
-                        <span class="form-label" style="margin-bottom: 0;">📸 Add Custom Photos (Up to 3)</span>
-                        <button type="button" id="btn-reset-photos" style="background: none; border: none; color: #ff758c; font-size: 0.75rem; cursor: pointer; text-decoration: underline;">Reset to Default</button>
-                    </div>
-                    <label for="input-custom-photos" class="photo-upload-dropzone">
-                        <span style="font-size: 1.2rem;">📷</span>
-                        <span style="font-size: 0.82rem; color: var(--gold-primary); font-weight: 600;">Click to upload photos from your device</span>
-                        <span style="font-size: 0.72rem; color: var(--text-muted);">Stored locally for the receiver</span>
-                    </label>
-                    <input type="file" id="input-custom-photos" accept="image/*" multiple style="display: none;">
-                    <div id="photo-previews-strip" class="photo-previews-strip"></div>
-                </div>
-
-                <button type="submit" id="btn-submit-generate" class="btn-glow-primary" style="width: 100%; margin: 0.8rem 0 1.2rem 0; justify-content: center;">
-                    <span>✨ Generate &amp; Preview Wish 🎁</span>
-                </button>
-
-                <div class="form-group" style="margin-bottom: 0.6rem;">
-                    <label class="form-label">🔗 Shareable Link for Receiver</label>
-                    <input type="text" id="output-share-link" class="form-input" readonly style="color: var(--gold-primary); font-family: monospace; font-size: 0.88rem;">
-                </div>
-
-                <div class="share-links-grid" id="modal-share-grid">
-                    <button type="button" id="btn-share-whatsapp" class="social-share-btn btn-whatsapp" title="Send via WhatsApp">
-                        <span>💬 WhatsApp</span>
-                    </button>
-                    <button type="button" id="btn-share-telegram" class="social-share-btn btn-telegram" title="Send via Telegram">
-                        <span>✈️ Telegram</span>
-                    </button>
-                    <button type="button" id="btn-share-instagram" class="social-share-btn btn-instagram" title="Share on Instagram">
-                        <span>📸 Instagram</span>
-                    </button>
-                    <button type="button" id="btn-share-sms" class="social-share-btn btn-sms" title="Send via Text Message / SMS">
-                        <span>💬 Message</span>
-                    </button>
-                    <button type="button" id="btn-copy-url" class="social-share-btn btn-copy-link" title="Copy Link to Clipboard">
-                        <span>📋 Copy Link</span>
-                    </button>
-                    <button type="button" id="btn-share-native" class="social-share-btn btn-native-share" title="Send Link via Any App">
-                        <span>🌐 Send Link</span>
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
 
     <!-- Toast Notification -->
     <div id="toast-notice" class="toast-notice">Link copied to clipboard! ✨</div>
