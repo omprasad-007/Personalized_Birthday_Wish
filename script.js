@@ -1621,25 +1621,49 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Keyboard Navigation
+    // Keyboard Navigation (Supports Enter ↵, Space, Arrow keys, Escape)
     window.addEventListener('keydown', (e) => {
+        const isInputFocused = document.activeElement && (document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'TEXTAREA');
+
         if (inGeneratorView) {
-            if (e.key === 'Escape' && lightboxModal && lightboxModal.classList.contains('active')) {
-                lightboxModal.classList.remove('active');
+            if (e.key === 'Escape') {
+                if (lightboxModal && lightboxModal.classList.contains('active')) lightboxModal.classList.remove('active');
+                if (sendWishModal && sendWishModal.classList.contains('active')) sendWishModal.classList.remove('active');
             }
             return;
         }
+
+        if (isInputFocused && e.key === 'Enter') return;
+
+        if (e.key === 'Escape') {
+            if (lightboxModal && lightboxModal.classList.contains('active')) lightboxModal.classList.remove('active');
+            if (sendWishModal && sendWishModal.classList.contains('active')) sendWishModal.classList.remove('active');
+            return;
+        }
+
+        if ((lightboxModal && lightboxModal.classList.contains('active')) ||
+            (sendWishModal && sendWishModal.classList.contains('active'))) {
+            return;
+        }
+
         const activeIds = getActiveStageIds();
-        if (e.key === 'ArrowRight' || e.key === ' ') {
+
+        // Forward Navigation: Enter ↵, Space, ArrowRight, PageDown
+        if (e.key === 'Enter' || e.key === ' ' || e.key === 'ArrowRight' || e.key === 'PageDown') {
+            e.preventDefault();
+            if (window.soundEngine && currentStageIndex === 0) {
+                window.soundEngine.startMusic();
+            }
             if (currentStageIndex < activeIds.length - 1) {
                 goToStageIndex(currentStageIndex + 1);
+            } else if (currentStageIndex === activeIds.length - 1) {
+                restartJourney();
             }
-        } else if (e.key === 'ArrowLeft') {
+        } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+            e.preventDefault();
             if (currentStageIndex > 0) {
                 goToStageIndex(currentStageIndex - 1);
             }
-        } else if (e.key === 'Escape') {
-            if (lightboxModal && lightboxModal.classList.contains('active')) lightboxModal.classList.remove('active');
         }
     });
 
