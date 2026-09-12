@@ -1667,6 +1667,85 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // =========================================================================
+    // MOBILE TAP ON SCREEN & TOUCH SWIPE NAVIGATION
+    // =========================================================================
+    let touchStartX = 0;
+    let touchStartY = 0;
+    let touchStartTime = 0;
+
+    const interactiveSelectors = [
+        'button', 'input', 'textarea', 'select', 'label', 'a',
+        '.social-share-btn', '.audio-hud', '.lang-btn', '#lang-selector',
+        '.preview-mode-bar', '.custom-modal-card', '.lightbox-content',
+        '.candle', '#interactive-cake', '.oracle-card-btn', '#mystery-gift-box',
+        '#secret-envelope', '.polaroid-card', '.photo-preview-item', '.photo-upload-dropzone',
+        '.photo-upload-box', '.bday-wish-tag', '.step-dot'
+    ].join(', ');
+
+    window.addEventListener('touchstart', (e) => {
+        if (e.touches && e.touches.length === 1) {
+            touchStartX = e.touches[0].clientX;
+            touchStartY = e.touches[0].clientY;
+            touchStartTime = Date.now();
+        }
+    }, { passive: true });
+
+    window.addEventListener('touchend', (e) => {
+        if (inGeneratorView) return;
+
+        // If modal or lightbox is active, do not trigger background tap navigation
+        if ((lightboxModal && lightboxModal.classList.contains('active')) ||
+            (sendWishModal && sendWishModal.classList.contains('active'))) {
+            return;
+        }
+
+        if (!e.changedTouches || e.changedTouches.length !== 1) return;
+
+        const touchEndX = e.changedTouches[0].clientX;
+        const touchEndY = e.changedTouches[0].clientY;
+        const deltaX = touchEndX - touchStartX;
+        const deltaY = touchEndY - touchStartY;
+        const duration = Date.now() - touchStartTime;
+
+        // Ignore touches on interactive components (buttons, candles, envelopes, inputs, etc.)
+        const target = e.target;
+        if (target && target.closest(interactiveSelectors)) {
+            return;
+        }
+
+        const activeIds = getActiveStageIds();
+
+        // 1. Horizontal Swipe (Swipe Left = Next, Swipe Right = Prev)
+        if (Math.abs(deltaX) > 40 && Math.abs(deltaX) > Math.abs(deltaY) * 1.4 && duration < 600) {
+            if (deltaX < 0) {
+                // Swiped Left -> Move to Next Stage
+                if (window.soundEngine && currentStageIndex === 0) {
+                    window.soundEngine.startMusic();
+                }
+                if (currentStageIndex < activeIds.length - 1) {
+                    goToStageIndex(currentStageIndex + 1);
+                }
+            } else if (deltaX > 0) {
+                // Swiped Right -> Move to Prev Stage
+                if (currentStageIndex > 0) {
+                    goToStageIndex(currentStageIndex - 1);
+                }
+            }
+            return;
+        }
+
+        // 2. Tap on Screen (Quick tap with minimal displacement)
+        if (Math.abs(deltaX) < 16 && Math.abs(deltaY) < 16 && duration < 400) {
+            if (window.soundEngine && currentStageIndex === 0) {
+                window.soundEngine.startMusic();
+            }
+            if (currentStageIndex < activeIds.length - 1) {
+                goToStageIndex(currentStageIndex + 1);
+            }
+        }
+    }, { passive: true });
+
     // Initial Setup
     resetCandlesAndSurprises();
     renderAllContent();

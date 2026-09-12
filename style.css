@@ -1688,9 +1688,28 @@ html, body {
     box-shadow: 0 2px 0 rgba(0, 0, 0, 0.3);
 }
 
+.mobile-tap-hint {
+    display: none;
+    margin-top: clamp(0.2rem, 0.5vh, 0.4rem);
+    font-size: 0.74rem;
+    color: var(--gold-primary);
+    font-weight: 600;
+    opacity: 0.9;
+    letter-spacing: 0.3px;
+    animation: pulseTapHint 2.2s infinite ease-in-out;
+}
+
+@keyframes pulseTapHint {
+    0%, 100% { opacity: 0.65; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.03); }
+}
+
 @media (max-width: 600px) {
     .keyboard-nav-hint {
         display: none;
+    }
+    .mobile-tap-hint {
+        display: block;
     }
 }
 
