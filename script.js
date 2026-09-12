@@ -1152,11 +1152,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Audio HUD
     if (audioToggle) {
-        audioToggle.addEventListener('click', () => {
+        audioToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
             if (window.soundEngine) {
                 const isMuted = window.soundEngine.toggleMute();
                 audioToggle.classList.toggle('muted', isMuted);
-                audioStatusText.textContent = isMuted ? 'Music OFF' : 'Music ON';
+                if (audioStatusText) {
+                    audioStatusText.textContent = isMuted ? 'Music OFF' : 'Music ON';
+                }
             }
         });
     }
