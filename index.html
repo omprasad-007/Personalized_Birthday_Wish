@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday! ✨ A Special Celebration Journey</title>
+    
+    <!-- Meta & Social Sharing / OpenGraph -->
+    <meta name="description" content="An interactive, heartfelt birthday celebration journey with memories, interactive cake, secret letter, and fireworks!">
+    <meta property="og:title" content="Happy Birthday! ✨ Someone created a special surprise for you">
+    <meta property="og:description" content="Open this link to experience your interactive birthday celebration journey!">
+    <meta property="og:type" content="website">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220%22><text y=%2222%22 font-size=%2222%22>🎂</text></svg>">
+</head>
+<body>
+
+    <!-- Ambient Glowing Background Orbs -->
+    <div class="ambient-bg">
+        <div class="glow-orb orb-1"></div>
+        <div class="glow-orb orb-2"></div>
+        <div class="glow-orb orb-3"></div>
+    </div>
+
+    <!-- Interactive Canvases -->
+    <canvas id="fireworks-canvas"></canvas>
+    <canvas id="confetti-canvas"></canvas>
+    <div id="balloon-container"></div>
+
+    <!-- Main App Container -->
+    <main id="app-container">
+
+        <!-- Top Navigation -->
+        <nav class="top-nav" aria-label="Quick Actions">
+            <!-- Language Switcher Tabs -->
+            <div class="lang-selector-wrap" id="lang-selector">
+                <button class="lang-btn active" data-lang="en" title="English">English</button>
+                <button class="lang-btn" data-lang="hi" title="Hindi">हिंदी</button>
+                <button class="lang-btn" data-lang="mr" title="Marathi">मराठी</button>
+            </div>
+
+            <button id="btn-generate-wish" class="glass-btn-icon btn-generate-nav" title="Generate your personalized birthday wish">
+                <span>✨</span>
+                <span>Generate Wish</span>
+            </button>
+            <button id="btn-restart-journey" class="glass-btn-icon" style="display:none;" title="Restart journey">
+                <span>🔄</span>
+                <span>Replay</span>
+            </button>
+        </nav>
+
+        <!-- Floating Audio HUD -->
+        <div id="audio-toggle" class="audio-hud" title="Toggle background music & sound effects">
+            <div class="audio-icon-wrap">
+                <span class="audio-bar"></span>
+                <span class="audio-bar"></span>
+                <span class="audio-bar"></span>
+                <span class="audio-bar"></span>
+            </div>
+            <span class="audio-label" id="audio-status-text">Music ON</span>
+        </div>
+
+        <!-- Stage Viewport Container -->
+        <div class="stage-viewport">
+
+            <!-- SCREEN 0: Main Direct Landing & Grand Birthday Wish Card -->
+            <section id="stage-0" class="journey-stage active" aria-label="Birthday Card">
+                <div class="glass-card">
+                    <!-- TO Recipient Badge -->
+                    <div class="card-to-badge">
+                        <span>🎁 TO:</span>
+                        <span class="recipient-highlight" id="stage0-recipient-name">Priya</span>
+                        <span>✨</span>
+                    </div>
+
+                    <div style="font-size: 2.8rem; margin: 0.2rem 0;">🎂</div>
+                    
+                    <!-- Main Birthday Heading -->
+                    <h1 class="reveal-sparkle-title" id="stage0-main-heading">Happy Birthday, Priya!</h1>
+                    <div class="celebration-tag" id="stage0-tagline">Wishing you the most magical and happiest day! 🎉</div>
+
+                    <!-- Birthday Message Content Paragraph -->
+                    <div class="typewriter-container" style="min-height: auto; margin: 1.2rem 0;">
+                        <p class="typewriter-text" id="stage0-wish-content" style="font-size: 1.15rem; line-height: 1.75; color: #f8f9fa;">
+                            <!-- Populated dynamically with unique main celebration wish -->
+                        </p>
+                    </div>
+
+                    <!-- Birthday Wishes Pills -->
+                    <div class="bday-wishes-pills" id="stage0-wishes-pills" aria-label="Birthday Wishes">
+                        <span class="bday-wish-tag">✨ Limitless Joy</span>
+                        <span class="bday-wish-tag">❤️ Pure Love</span>
+                        <span class="bday-wish-tag">🎯 Grand Success</span>
+                        <span class="bday-wish-tag">🌟 Beautiful Memories</span>
+                    </div>
+
+                    <!-- FROM Sender Box -->
+                    <div class="card-from-box">
+                        <div class="card-from-label" id="stage0-from-label">With Love &amp; Best Wishes From</div>
+                        <div class="sender-highlight" id="stage0-sender-name">Rahul ❤️</div>
+                    </div>
+
+                    <!-- Interactive Journey Actions -->
+                    <div style="display: flex; gap: 0.8rem; justify-content: center; margin-top: 1.5rem; flex-wrap: wrap;">
+                        <button id="btn-start-journey" class="btn-glow-primary">
+                            <span>✨ Read Personal Letter 💌</span>
+                        </button>
+                        <button class="glass-btn-icon stage-next-btn" style="padding: 0.8rem 1.4rem; font-size: 0.95rem;">
+                            <span>🎂 Cake &amp; Surprises ➔</span>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SCREEN 1: Soulful Personal Letter -->
+            <section id="stage-1" class="journey-stage" aria-label="Personal Birthday Message">
+                <div class="glass-card">
+                    <div class="badge-pill" id="stage1-badge">❤️ A Message From The Heart</div>
+                    <div style="font-size: 2.2rem; margin-bottom: 0.3rem;">💌</div>
+                    <h2 class="title-serif" style="font-size: 2.1rem;" id="msg-card-heading">Special Letter for <span id="msg-recipient-name">Priya</span></h2>
+                    
+                    <div class="typewriter-container" style="min-height: 140px; margin: 1.2rem 0;">
+                        <p class="typewriter-text" id="typewriter-content" style="font-size: 1.12rem; line-height: 1.75;">
+                            <!-- Populated dynamically with unique personal soul letter -->
+                        </p>
+                    </div>
+
+                    <!-- Core Wishes Badges -->
+                    <div class="bday-wishes-pills" id="stage1-wishes-pills" aria-label="Birthday Wishes">
+                        <span class="bday-wish-tag">✨ Good Health</span>
+                        <span class="bday-wish-tag">💖 True Friendships</span>
+                        <span class="bday-wish-tag">🚀 Big Milestones</span>
+                    </div>
+
+                    <!-- Sender Signature Block -->
+                    <div class="sender-signature-box" id="msg-sender-signature">
+                        Always wishing the best for you,<br>
+                        <span id="msg-sender-name">Rahul</span> ❤️
+                    </div>
+
+                    <button class="btn-glow-primary stage-next-btn" style="margin-top: 1.2rem;">
+                        <span>Relive Our Memories 📸</span>
+                    </button>
+                </div>
+            </section>
+
+            <!-- SCREEN 2: Polaroid Memories Wall -->
+            <section id="stage-2" class="journey-stage" aria-label="Memory Gallery">
+                <div class="glass-card">
+                    <div class="badge-pill" id="stage2-badge">📸 Treasured Memories</div>
+                    <h2 class="title-serif" style="font-size: 2.1rem;" id="stage2-title">Moments We Cherish</h2>
+                    <p class="subtitle-desc" id="stage2-desc" style="margin-bottom: 0.5rem; font-size: 0.95rem;">
+                        Tap any Polaroid to look closer ✨
+                    </p>
+
+                    <button type="button" id="btn-add-photos-stage2" class="glass-btn-icon" style="margin: 0 auto 0.9rem auto; font-size: 0.85rem; padding: 0.4rem 0.9rem;">
+                        <span>📷</span>
+                        <span>Add / Change Custom Photos</span>
+                    </button>
+
+                    <div class="polaroid-grid">
+                        <div class="polaroid-card" data-img="assets/images/memory_1.jpg" data-caption="Laughs & Warm Coffee ✨">
+                            <div class="polaroid-tape"></div>
+                            <div class="polaroid-img-wrap">
+                                <img src="assets/images/memory_1.jpg" alt="Memory cafe laugh" loading="lazy">
+                            </div>
+                            <div class="polaroid-caption" id="pol-cap-1">Unforgettable Days</div>
+                        </div>
+
+                        <div class="polaroid-card" data-img="assets/images/memory_2.jpg" data-caption="Sunset Sparklers & Beach Vibes 🌊">
+                            <div class="polaroid-tape"></div>
+                            <div class="polaroid-img-wrap">
+                                <img src="assets/images/memory_2.jpg" alt="Memory beach celebration" loading="lazy">
+                            </div>
+                            <div class="polaroid-caption" id="pol-cap-2">B-Day Vibes!</div>
+                        </div>
+
+                        <div class="polaroid-card" data-img="assets/images/memory_3.jpg" data-caption="Under The Starry Skies 🌟">
+                            <div class="polaroid-tape"></div>
+                            <div class="polaroid-img-wrap">
+                                <img src="assets/images/memory_3.jpg" alt="Memory campfire night" loading="lazy">
+                            </div>
+                            <div class="polaroid-caption" id="pol-cap-3">Campfire Melodies</div>
+                        </div>
+                    </div>
+
+                    <button class="btn-glow-primary stage-next-btn">
+                        <span>Time For The Cake! 🎂</span>
+                    </button>
+                </div>
+            </section>
+
+            <!-- SCREEN 3: Interactive Cake & Candle Blow -->
+            <section id="stage-3" class="journey-stage" aria-label="Birthday Cake">
+                <div class="glass-card">
+                    <div class="badge-pill" id="stage3-badge">🎂 Make A Wish</div>
+                    <h2 class="title-serif" style="font-size: 2.1rem;" id="stage3-title">Blow Out The Candles!</h2>
+                    
+                    <div class="cake-stage-container" id="interactive-cake">
+                        <div class="candles-group">
+                            <div class="candle" id="candle-1">
+                                <div class="wick"></div>
+                                <div class="flame"></div>
+                                <div class="smoke-puff"></div>
+                            </div>
+                            <div class="candle" id="candle-2">
+                                <div class="wick"></div>
+                                <div class="flame"></div>
+                                <div class="smoke-puff"></div>
+                            </div>
+                            <div class="candle" id="candle-3">
+                                <div class="wick"></div>
+                                <div class="flame"></div>
+                                <div class="smoke-puff"></div>
+                            </div>
+                        </div>
+                        
+                        <!-- 3 Tier Cake -->
+                        <div class="cake-layer top">
+                            <div class="frosting-drips"></div>
+                        </div>
+                        <div class="cake-layer middle">
+                            <div class="frosting-drips"></div>
+                        </div>
+                        <div class="cake-layer bottom">
+                            <div class="frosting-drips"></div>
+                        </div>
+                        <div class="cake-plate"></div>
+                    </div>
+
+                    <div class="cake-hint-text" id="cake-status-hint">
+                        <span>💨 Tap the candles or cake to blow them out!</span>
+                    </div>
+
+                    <div id="cake-wish-banner" style="display:none; margin-top: 1.2rem;">
+                        <p style="color: var(--gold-primary); font-size: 1.2rem; font-weight: 700;" id="cake-wish-text">
+                            ✨ Your wish is sent to the stars! ✨
+                        </p>
+                        <button class="btn-glow-primary stage-next-btn" style="margin-top: 1rem;">
+                            <span>One More Secret Surprise 💌</span>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SCREEN SURPRISE: "I Have A Surprise For You" & Wish Oracle -->
+            <section id="stage-surprise" class="journey-stage" aria-label="Special Surprise Oracle">
+                <div class="glass-card">
+                    <div class="badge-pill" id="stage-surprise-badge">🎁 Special Surprise</div>
+                    <h2 class="title-serif" style="font-size: 2.1rem;" id="stage-surprise-title">I Have A Surprise For You! ✨</h2>
+                    
+                    <div class="suspense-teaser-box">
+                        <p class="suspense-teaser-text" id="stage-surprise-teaser">
+                            "Wait for a while... Take a deep breath & close your eyes 🤫 Something magical is prepared just for you!"
+                        </p>
+                    </div>
+
+                    <div class="oracle-question-heading" id="oracle-heading">
+                        💫 What do you want the most in this upcoming year?
+                    </div>
+
+                    <div class="oracle-grid" id="oracle-grid">
+                        <button type="button" class="oracle-card-btn" data-wish="success">
+                            <span class="oracle-icon">🚀</span>
+                            <span class="oracle-title" id="oracle-opt-1-title">Grand Success & Big Wins</span>
+                            <span class="oracle-subtitle" id="oracle-opt-1-sub">Crush every goal & rise high</span>
+                        </button>
+                        <button type="button" class="oracle-card-btn" data-wish="love">
+                            <span class="oracle-icon">💖</span>
+                            <span class="oracle-title" id="oracle-opt-2-title">Deep Love & Peace of Mind</span>
+                            <span class="oracle-subtitle" id="oracle-opt-2-sub">Endless warmth & joy</span>
+                        </button>
+                        <button type="button" class="oracle-card-btn" data-wish="adventure">
+                            <span class="oracle-icon">✈️</span>
+                            <span class="oracle-title" id="oracle-opt-3-title">Unforgettable Adventures</span>
+                            <span class="oracle-subtitle" id="oracle-opt-3-sub">Golden travels & smiles</span>
+                        </button>
+                        <button type="button" class="oracle-card-btn" data-wish="miracle">
+                            <span class="oracle-icon">🌟</span>
+                            <span class="oracle-title" id="oracle-opt-4-title">All My Secret Dreams</span>
+                            <span class="oracle-subtitle" id="oracle-opt-4-sub">Pure magic from universe</span>
+                        </button>
+                    </div>
+
+                    <!-- Mystery Gift Reveal Area -->
+                    <div id="mystery-gift-reveal-wrap" class="mystery-gift-reveal-wrap">
+                        <div class="mystery-gift-box-anim" id="mystery-gift-box">🎁</div>
+                        <div class="revealed-fortune-card">
+                            <div class="revealed-fortune-title" id="revealed-fortune-title">✨ Your Surprise Destiny Blessing ✨</div>
+                            <p class="revealed-fortune-text" id="revealed-fortune-text"></p>
+                        </div>
+                        <button class="btn-glow-primary stage-next-btn" style="margin-top: 1.2rem;">
+                            <span>Open Secret Letter 💌</span>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SCREEN 4: Secret Letter & Envelope -->
+            <section id="stage-4" class="journey-stage" aria-label="Secret Letter">
+                <div class="glass-card">
+                    <div class="badge-pill" id="stage4-badge">💌 Secret Surprise</div>
+                    <h2 class="title-serif" style="font-size: 2.1rem;" id="stage4-title">A Hidden Letter For You</h2>
+                    <p class="subtitle-desc" id="stage4-desc" style="margin-bottom: 1rem;">
+                        Tap the golden wax seal to unseal the letter.
+                    </p>
+
+                    <div class="envelope-wrapper" id="secret-envelope">
+                        <div class="envelope-base"></div>
+                        <div class="secret-letter">
+                            <p class="secret-letter-text" id="envelope-secret-text">
+                                "Never forget how truly valued, loved, and appreciated you are. The world is brighter with you in it. Keep shining!"
+                            </p>
+                            <p class="secret-letter-text" id="envelope-sender-sign" style="text-align: right; margin-top: 10px; font-size: 1.15rem; color: #e63946;">
+                                — With love, Always ❤️
+                            </p>
+                        </div>
+                        <div class="envelope-pocket"></div>
+                        <div class="envelope-flap"></div>
+                        <div class="wax-seal">⚜️</div>
+                    </div>
+
+                    <button class="btn-glow-primary stage-next-btn" id="btn-post-envelope" style="margin-top: 1.2rem;">
+                        <span>Final Celebration 🌟</span>
+                    </button>
+                </div>
+            </section>
+
+            <!-- SCREEN 5: Grand Finale & Share -->
+            <section id="stage-5" class="journey-stage" aria-label="Grand Celebration Finale">
+                <div class="glass-card">
+                    <div class="badge-pill" id="stage5-badge">🌟 Wishing You The Best Year Ever</div>
+                    <h1 class="title-serif" style="font-size: 2.6rem;" id="stage5-title">Happy Birthday!</h1>
+                    
+                    <div class="final-wishes-box" id="stage5-wishes-box">
+                        <div class="wish-row">
+                            <span class="wish-icon">💫</span>
+                            <div>
+                                <div class="wish-title">Endless Joy & Health</div>
+                                <div class="wish-desc">May this upcoming chapter bring health, peace, and pure happiness.</div>
+                            </div>
+                        </div>
+                        <div class="wish-row">
+                            <span class="wish-icon">🚀</span>
+                            <div>
+                                <div class="wish-title">Limitless Success</div>
+                                <div class="wish-desc">May all your dreams, ambitions, and projects soar higher than ever.</div>
+                            </div>
+                        </div>
+                        <div class="wish-row">
+                            <span class="wish-icon">💖</span>
+                            <div>
+                                <div class="wish-title">Unconditional Love</div>
+                                <div class="wish-desc">Surrounded by warmth, genuine friends, and cherished moments.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; gap: 0.8rem; justify-content: center; flex-wrap: wrap;">
+                        <button id="btn-generate-wish-footer" class="btn-glow-gold">
+                            <span>✨ Generate Birthday Wish</span>
+                        </button>
+                        <button id="btn-replay-journey-footer" class="btn-glow-primary">
+                            <span>🔄 Replay Journey</span>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+
+        <!-- Journey Stage Progress Indicators -->
+        <footer class="journey-controls" aria-label="Journey Progress">
+            <div class="step-indicators" id="step-indicators-container">
+                <div class="step-dot active" data-step="0" title="Main Wish"></div>
+                <div class="step-dot" data-step="1" title="Letter"></div>
+                <div class="step-dot" data-step="2" title="Memories"></div>
+                <div class="step-dot" data-step="3" title="Cake"></div>
+                <div class="step-dot" data-step="4" title="Secret Letter"></div>
+                <div class="step-dot" data-step="5" title="Finale"></div>
+            </div>
+        </footer>
+
+    </main>
+
+    <!-- Polaroid Lightbox Modal -->
+    <div id="lightbox-modal" class="lightbox-modal" role="dialog" aria-modal="true">
+        <div class="lightbox-content">
+            <button class="lightbox-close-btn" id="btn-close-lightbox" title="Close">&times;</button>
+            <div class="lightbox-img-wrap">
+                <img id="lightbox-img" src="" alt="Enlarged Memory">
+            </div>
+            <div class="lightbox-caption" id="lightbox-caption"></div>
+        </div>
+    </div>
+
+    <!-- Generate Your Own Birthday Surprise Modal -->
+    <div id="create-modal" class="modal-overlay" role="dialog" aria-modal="true">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modal-heading-title">✨ Create Birthday Surprise</h3>
+                <button class="modal-close-btn" id="btn-close-create-modal" title="Close">&times;</button>
+            </div>
+            <p style="font-size: 0.88rem; color: var(--text-muted); margin-top: -0.8rem; margin-bottom: 1.2rem; line-height: 1.5;" id="modal-subheading-text">
+                Enter your friend's name and your name to create a personalized birthday celebration link.
+            </p>
+            <form id="create-wish-form">
+                <div class="form-group">
+                    <label class="form-label" for="input-bday-name">🎂 Birthday Person's Name (Receiver)</label>
+                    <input type="text" id="input-bday-name" class="form-input" placeholder="e.g. Priya / Rohan / Ananya" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="input-sender-name">❤️ Your Name (Sender)</label>
+                    <input type="text" id="input-sender-name" class="form-input" placeholder="e.g. Rahul / Amit / Sneha" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="input-wish-lang">🌐 Celebration Language</label>
+                    <select id="input-wish-lang" class="form-input" style="cursor: pointer;">
+                        <option value="en">English</option>
+                        <option value="hi">हिंदी (Hindi)</option>
+                        <option value="mr">मराठी (Marathi)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="input-custom-msg">💌 Personal Secret Note (Optional)</label>
+                    <textarea id="input-custom-msg" class="form-textarea" rows="2" placeholder="Write a special surprise note for the secret letter..."></textarea>
+                </div>
+
+                <div class="form-group" style="border: 1px dashed rgba(255,255,255,0.25); border-radius: var(--radius-sm); padding: 0.8rem; background: rgba(255,255,255,0.03);">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
+                        <span class="form-label" style="margin-bottom: 0;">📸 Add Custom Photos (Up to 3)</span>
+                        <button type="button" id="btn-reset-photos" style="background: none; border: none; color: #ff758c; font-size: 0.75rem; cursor: pointer; text-decoration: underline;">Reset to Default</button>
+                    </div>
+                    <label for="input-custom-photos" class="photo-upload-dropzone">
+                        <span style="font-size: 1.2rem;">📷</span>
+                        <span style="font-size: 0.82rem; color: var(--gold-primary); font-weight: 600;">Click to upload photos from your device</span>
+                        <span style="font-size: 0.72rem; color: var(--text-muted);">Stored locally for the receiver</span>
+                    </label>
+                    <input type="file" id="input-custom-photos" accept="image/*" multiple style="display: none;">
+                    <div id="photo-previews-strip" class="photo-previews-strip"></div>
+                </div>
+
+                <button type="submit" id="btn-submit-generate" class="btn-glow-primary" style="width: 100%; margin: 0.8rem 0 1.2rem 0; justify-content: center;">
+                    <span>✨ Generate &amp; Preview Wish 🎁</span>
+                </button>
+
+                <div class="form-group" style="margin-bottom: 0.6rem;">
+                    <label class="form-label">🔗 Shareable Link for Receiver</label>
+                    <input type="text" id="output-share-link" class="form-input" readonly style="color: var(--gold-primary); font-family: monospace; font-size: 0.88rem;">
+                </div>
+
+                <div class="share-links-grid" id="modal-share-grid">
+                    <button type="button" id="btn-share-whatsapp" class="social-share-btn btn-whatsapp" title="Send via WhatsApp">
+                        <span>💬 WhatsApp</span>
+                    </button>
+                    <button type="button" id="btn-share-telegram" class="social-share-btn btn-telegram" title="Send via Telegram">
+                        <span>✈️ Telegram</span>
+                    </button>
+                    <button type="button" id="btn-share-instagram" class="social-share-btn btn-instagram" title="Share on Instagram">
+                        <span>📸 Instagram</span>
+                    </button>
+                    <button type="button" id="btn-share-sms" class="social-share-btn btn-sms" title="Send via Text Message / SMS">
+                        <span>💬 Message</span>
+                    </button>
+                    <button type="button" id="btn-copy-url" class="social-share-btn btn-copy-link" title="Copy Link to Clipboard">
+                        <span>📋 Copy Link</span>
+                    </button>
+                    <button type="button" id="btn-share-native" class="social-share-btn btn-native-share" title="Send Link via Any App">
+                        <span>🌐 Send Link</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast-notice" class="toast-notice">Link copied to clipboard! ✨</div>
+
+    <!-- Scripts -->
+    <script src="audio/soundEngine.js"></script>
+    <script src="animations/hearts.js"></script>
+    <script src="animations/confetti.js"></script>
+    <script src="animations/fireworks.js"></script>
+    <script src="animations/balloons.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
